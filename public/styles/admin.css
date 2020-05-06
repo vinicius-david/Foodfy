@@ -1,0 +1,671 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: 'Roboto';
+}
+
+/* HEADER ------------------------------------------------------------------- */
+
+header {
+  background-color: black;
+}
+
+header .admin-header-links {
+  padding: 27px 0px;
+  margin: 0 auto;
+  width: 940px;
+  
+  display: flex;
+  align-items: center;
+
+  position: relative;
+}
+
+header .admin-header-links a {
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  font-size: 15px;
+
+  margin-right: 30px;
+}
+
+header .admin-header-links a img {
+  margin-right: 50px;
+}
+
+header .admin-header-links form button {
+  text-transform: uppercase;
+  color: white;
+  background-color: black;
+  padding: 0px;
+  font-size: 15px;
+
+  position: absolute;
+  right: 0px;
+  top: 34px;
+}
+
+/* RECIPES -------------------------------------------------------------------*/
+
+.recipes-title {
+  width: 940px;
+  margin: 0 auto;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  margin-top: 50px;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.all-recipes {
+  width: 940px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.all-recipes .recipes {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-gap: 8px;
+
+  margin-top: 20px;
+}
+
+.all-recipes .recipes img {
+  width: 172px;
+  height: 80px;
+
+  border-radius: 9px;
+}
+
+.all-recipes .recipes .recipe-info h2 {
+  font-size: 18px;
+}
+
+.all-recipes .recipes .recipe-info h3 {
+  font-size: 14px;
+  color: #777777;
+
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.all-recipes .recipes .recipe-info a {
+  text-decoration: none;
+}
+
+/* SHOW ----------------------------------------------------------------------*/
+
+.recipes-title button {
+  background-color: #6558C3;
+  color: white;
+
+  padding: 9px 20px;
+  border-radius: 4px;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.show-content {
+  width: 940px;
+  margin: 0 auto;
+}
+
+.show-content .image img {
+  margin-top: 10px;
+  border-radius: 15px;
+}
+
+.show-content .title {
+  margin-top: 50px;
+  
+  font-size: 32px;
+  font-weight: 700;
+  
+  text-align: center;
+}
+
+.show-content .author {
+  font-size: 20px;
+  color: #777777;
+  
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.show-content .ingredients h1,
+.show-content .preparation h1,
+.show-content .information h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.show-content .ingredients-text,
+.show-content .preparation-text,
+.show-content .information-text {
+  margin-bottom: 50px;
+  font-size: 18px;
+  color: #444444;
+}
+
+.show-content .ingredients-text ul {
+  margin-left: 20px;
+}
+
+.show-content .preparation-text ul {
+  margin-left: 20px;
+}
+
+.show-content .information-text {
+  margin-bottom: 50px;
+}
+
+/* FIELDS --------------------------------------------------------------------*/
+
+.fields {
+  width: 940px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.fields .image-field {
+  margin-top: 20px;
+}
+
+.fields input,
+.fields textarea,
+.fields select {
+  height: 50px;
+  width: 940px;
+  margin-top: 10px;
+
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+
+  display: block;
+  box-sizing: border-box;
+
+  font-size: 16px;
+  padding: 0px 8px;
+}
+
+.fields textarea {
+  height: 250px;
+  margin-bottom: 50px;
+
+  padding-top: 12px;
+}
+
+.fields p {
+  margin-top: 30px;
+
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.fields button {
+  margin-top: 15px;
+  background-color: white;
+  color: blue;
+}
+
+/* EDIT RECIPES --------------------------------------------------------------*/
+
+.recipes-edit {
+  width: 940px;
+  margin: 0 auto;
+}
+
+.recipes-edit .top-line {
+  margin-top: 55px;
+  display: grid;
+  grid-template-columns: 1fr 90px 132px;
+  grid-gap: 10px;
+}
+
+.recipes-edit .top-line h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.recipes-edit .forms button {
+  background-color: #6558C3;
+  color: white;
+
+  padding: 9px 20px;
+  border-radius: 4px;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.recipes-edit .top-line #delete-button {
+  background-color: #DC4747;
+}
+
+/* CHEFS LIST ----------------------------------------------------------------*/
+
+.all-chefs {
+  width: 940px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.all-chefs .chef {
+  margin-top: 30px;
+
+  display: flex;
+}
+
+.all-chefs .chef-img img {
+  width: 64px;
+  height: 64px;
+
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.all-chefs .chef-info h2 {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.all-chefs .chef-info a {
+  font-size: 14px;
+  color: #6558C3;
+  text-decoration: none;
+}
+
+/* CHEF SHOW -----------------------------------------------------------------*/
+
+.show-chef-content {
+  width: 940px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.show-chef-content .chef-image {
+  margin-top: 50px;
+}
+
+.show-chef-content .chef-image img {
+  width: 200px;
+  height: 200px;
+
+  border-radius: 50%;
+}
+
+.show-chef-content .chef-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 30px;
+}
+
+.show-chef-content .chef-n-recipes {
+  font-size: 20px;
+  color: #777777;
+  margin-top: 4px;
+  margin-bottom: 50px;
+}
+
+.chef-recipes-title {
+  width: 940px;
+  margin: 0 auto;
+}
+
+.chef-recipes {
+  width: 940px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.chef-recipes .chef-recipe {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.chef-recipes .chef-recipe:last-child {
+  margin-bottom: 50px;
+}
+
+.chef-recipes .chef-recipe .recipe-img img {
+  width: 100%;
+  height: 100px;
+  border-radius: 10px;
+
+  margin-top: 20px;
+}
+
+.chef-recipes .chef-recipe .recipe-info h2 {
+  font-size: 18px;
+  color: #111111;
+
+  margin-top: 30px;
+}
+
+.chef-recipes .chef-recipe .recipe-info h3 {
+  font-size: 14px;
+  color: #777777;
+}
+
+/* PHOTOS UPLOAD -------------------------------------------------------------*/
+
+.fields .image-field #photos-card {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.fields .image-field #photos-upload {
+  position: relative;
+  overflow: hidden;
+  display: block;
+
+  width: 200px;
+
+  margin-right: 8px;
+}
+
+.fields .image-field #photos-upload i {
+  padding: 55px 55px;
+  border: 1px solid #b3b3b3;
+  border-radius: 4px;
+
+  color: #808080;
+  font-size: 40px;
+}
+
+.fields .image-field #photos-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+  margin-top: 0px;
+
+  opacity: 0;
+}
+
+.fields .image-field #photos-preview {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.fields .image-field #photos-preview img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+
+  margin-right: 8px;
+}
+
+#photos-preview .photo {
+  position: relative;
+}
+
+#photos-preview .photo i {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgb(255, 255, 255, 0.8);
+
+  color: #FF0000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 40px;
+
+  opacity: 0;
+}
+
+#photos-preview .photo:hover i {
+  opacity: 1;
+}
+
+/* RECIPE GALLERY ------------------------------------------------------------*/
+
+.show-content .gallery {
+  width: 100%;
+}
+
+.show-content .gallery .highlight > img {
+  width: 940px;
+  height: 280px;
+
+  border-radius: 15px;
+
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.show-content .gallery-preview {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.show-content .gallery-preview img {
+  height: 50px;
+  width: 50px;
+  margin-left: 10px;
+  border-radius: 4px;
+
+  object-fit: cover;
+
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.show-content .gallery-preview img:hover,
+.show-content .gallery-preview img.active {
+  opacity: 1;
+  transition: 200ms;
+}
+
+/* CHEF CREATE ---------------------------------------------------------------*/
+
+.fields .image-field #avatar-send {
+  position: relative;
+  margin-top: 18px;
+}
+
+.fields .image-field #avatar-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  overflow: hidden;
+
+  width: 123px;
+  height: 100%;
+  margin-top: 0px;
+
+  opacity: 0;
+  cursor: pointer;
+}
+
+.fields .image-field #avatar-send span {
+  background-color: #6558C3;
+
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+/* USERS ---------------------------------------------------------------------*/
+
+.user-header-container {
+  width: 940px;
+  margin: 0 auto;
+  padding: 55px;
+
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.user-title h2 {
+  font-size: 24px;
+  margin-right: 440px;
+}
+
+.user-header-container .buttons {
+  position: absolute;
+  right: 55px;
+}
+
+.user-header-container .buttons button {
+  font-size: 14px;
+  color: white;
+  font-weight: 700;
+  background-color: #6558c3;
+  padding: 6px 24px;
+  border-radius: 4px;
+  margin-left: 15px;
+
+  width: 140px;
+
+}
+
+.user-header-container #delete {
+  background-color: #DC4747;
+  position: absolute;
+  right: 150px;
+}
+
+.user-header-container .buttons a {
+  text-decoration: none;
+  font-size: 14px;
+  color: white;
+  font-weight: 700;
+  background-color: #8a8a8a;
+  padding: 6px 40px;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+
+.user-fields-container {
+  width: 940px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 40px;
+}
+
+.user-fields h3 {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.user-fields .input input {
+  width: 100%;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+
+  display: block;
+  box-sizing: border-box;
+}
+
+.admin-fields {
+  display: flex;
+  align-items: center;
+}
+
+.admin-fields h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+/* USERS LIST ----------------------------------------------------------------*/
+
+.user-header-container .buttons .new-button {
+  background-color: #6558C3;
+}
+
+.users-container {
+  width: 940px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 100px;
+}
+
+.users-container .user .name h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #111111;
+}
+
+.users-container .user .email h3 {
+  font-size: 14px;
+  color: #777777;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.users-container .user .links {
+  display: flex;
+  flex-direction: row;
+}
+
+.users-container .user .links a {
+  text-decoration: none;
+  margin-right: 26px;
+  font-size: 14px;
+}
+
+.users-container .user .links a.edit {
+  color: #6558C3;
+}
+
+.users-container .user .links form button {
+  background-color: white;
+  color: #F55A5A;
+}

@@ -1,0 +1,128 @@
+<div class='fields'>
+
+  <div class='image-field'>
+  
+    <p>Imagens da receita</p>
+
+    <div id='photos-card'>
+
+      <div id='photos-upload'>
+        <input 
+          id='photos-input' 
+          name='photos' 
+          type='file' 
+          multiple 
+          accept='image/*'
+          onchange="PhotosUpload.handleFileInput(event)">
+        <i class='material-icons'>add</i>
+      </div>
+
+      <div id='photos-preview'>
+
+        {% if files %}
+          {% for image in files %}
+
+            <div class='photo' id='{{image.id}}'>
+              <img src='{{image.src}}' alt='{{image.name}}'>
+              <i 
+                class='material-icons' 
+                onclick='PhotosUpload.removeOldPhoto(event)'>close</i>
+            </div>
+
+          {% endfor %}
+          <input type='hidden' name='removed_files'>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div>
+  
+    <p>Título</p>
+    <input name='title' type='text' value={{recipe.title}}>
+  
+  </div>
+
+  <div>
+  
+    <p>Chef</p>
+
+    <div>
+
+    <select name='chef_id'>
+
+      {% for chef in chefs %}
+
+        <option value='{{chef.id}}' {% if recipe.chef_id == chef.id %}selected{% endif %}>
+          {{chef.name}}
+        </option>
+
+      {% endfor %}
+
+    </select>
+
+  </div>
+  
+  </div>
+
+  <div id='ingredients'>
+  
+    <p>Ingredientes</p>
+
+    <div>
+
+      {% for ingredient in recipe.ingredients %}
+        <input name='ingredients' type='text' value='{{ingredient}}'>
+      {% endfor %}
+
+    </div>
+
+    <div class='ingredient'>
+
+      <input name='ingredients[]' type='text' value='{{ingredient}}'>
+
+    </div>
+  
+  </div>
+
+  <div>
+    <button type='button' class='add-ingredient'>Adicionar novo ingrediente</button>
+  </div>
+
+  <div id='preparations'>
+  
+    <p>Modo de preparo</p>
+
+    <div>
+
+      {% for preparation in recipe.preparation %}
+        <input name='preparation[]' type='text' value='{{preparation}}'>
+      {% endfor %}
+
+    </div>
+
+    <div  class='preparation'>
+
+      <input name='preparation[]' type='text' value='{{preparation}}'>
+    
+    </div>
+  
+  </div>
+
+  <div>
+    <button type='button' class='add-preparation'>Adicionar novo passo</button>
+  </div>
+
+  <div>
+  
+    <p>Informações adicionais</p>
+    <textarea name='information'>{{recipe.information}}</textarea>
+  
+  </div>
+
+</div>
+
+<script src='/scripts/addField.js'></script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<head>
+
+  <title>Foodfy</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="/styles/admin.css">
+
+</head>
+
+<body>
+
+  {% if error %}
+    <div class='error messages'>
+      {{error}}
+    </div>
+  {% endif %}
+
+  {% if success %}
+    <div class='success messages'>
+      {{success}}
+    </div>
+  {% endif %}
+
+  <header class='admin'>
+
+    <div class='admin-header-links'>
+
+      <a href="/admin"><img src="/images/whitelogo.png" alt="Foodfy"></a>
+      <a href="/admin/recipes">Receitas</a>
+      <a href="/admin/chefs">Chefs</a>
+      <a href='/admin/users'>Usuários</a>
+      <form action='/users/logout' method='POST'>
+        <button>Sair</button>
+      </form>
+    
+    </div>
+    
+  </header>
+
+  {% block content %}{% endblock content %}
+
+  <script src='/scripts/admin.js'></script>
+
+</body>
+
+</html>
