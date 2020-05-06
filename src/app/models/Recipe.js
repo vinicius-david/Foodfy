@@ -5,7 +5,21 @@ const Base = require('./Base')
 Base.init({ table: 'recipes' })
 
 module.exports = {
-  ...Base, 
+  ...Base,
+  findAllChefsRecipes(id) {
+
+    const query = `SELECT recipes.*, chefs.name AS chef_name
+    FROM recipes 
+    LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+    WHERE chefs.id = $1`
+    
+    const values = [
+      id
+    ]
+    
+    return db.query(query,values)
+
+  },
   findBy(filter) {
 
     const query = `SELECT recipes.*, chefs.name AS chef_name

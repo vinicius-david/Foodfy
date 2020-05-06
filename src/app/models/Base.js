@@ -21,6 +21,38 @@ function find(filters, table) {
   return db.query(query)
 }
 
+function findAs(filters, table, original, changed, target, param, group, order, direction) {
+
+  let query = `SELECT ${table}.*, ${original} AS ${changed}
+    FROM ${table}
+    LEFT JOIN ${target} ON (${table}.${param} = ${table}.id)
+  `
+  if (filters) {
+
+    Object.keys(filters).map(key => {
+
+    // WHERE, OR, AND
+    query += ` ${key}`
+
+    Object.keys(filters[key]).map(field => {
+      query += ` ${table}.${field} = '${filters[key][field]}'`
+    })
+    
+  })
+  }
+
+  if (group) {
+    query += `GROUP BY ${group}`
+  }
+
+  if (order) {
+    query += `ORDER BY ${order} ${direction}`
+  }
+
+
+  return db.query(query)
+}
+
 function findAndCount(filters, table, target, param, group, order, direction) {
 
   let query = `SELECT ${table}.*, count(${target}) AS total_${target}
@@ -35,7 +67,7 @@ function findAndCount(filters, table, target, param, group, order, direction) {
     query += ` ${key}`
 
     Object.keys(filters[key]).map(field => {
-      query += ` ${field} = '${filters[key][field]}'`
+      query += ` ${table}.${field} = '${filters[key][field]}'`
     })
     
   })
@@ -110,6 +142,28 @@ const Base = {
     try {
      
       const results = await findAndCount(filters, this.table, target, param, group, order, direction)
+      
+      return results.rows
+      
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  async findOneAs(filters, original, changed, target, param, group, order, direction) {
+    try {
+     
+      const results = await findAs(filters, this.table, original, changed, target, param, group, order, direction)
+      
+      return results.rows[0]
+      
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  async findAllAs(filters, original, changed, target, param, group, order, direction) {
+    try {
+     
+      const results = await findAs(filters, this.table, original, changed, target, param, group, order, direction)
       
       return results.rows
       

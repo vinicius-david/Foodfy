@@ -1,18 +1,8 @@
 const crypto = require('crypto')
 const mailer = require('../../lib/mailer')
-const { hash, compare } = require('bcryptjs')
+const { hash } = require('bcryptjs')
 
 const User = require('../models/User')
-
-function isAdmin(req) {
-  if (req == 'on') {
-    is_admin = true
-    return is_admin
-  } else {
-    is_admin = false
-    return is_admin
-  }
-}
 
 module.exports = {
   async list(req, res) {
@@ -132,11 +122,7 @@ module.exports = {
 
       } else {
 
-        let is_admin = ''
-
-        is_admin = isAdmin(req.body.is_admin)
-        console.log(req.body.is_admin)
-        console.log(is_admin)
+        let is_admin = 'true'
 
         await User.update(id, {
           name,
@@ -159,34 +145,32 @@ module.exports = {
   async delete(req, res) {
     try {
 
-      const user = await User.find(req.body.id)
-      
+      let { id } = req.body
+
+      const user = await User.findOneWithParam({ where: {id} }, 'recipes', 'user_id', 'users.id')
+
+      if (user.total_recipes != 0) {
+
+        const users = await User.findAll()
+  
+        return res.render('admin/users/users', {
+          users,
+          error: 'Usuários com receitas cadastradas não podem ser deletados'
+        })
+      } else {
+        
+        await User.delete(id)
+  
+        const users = await User.list()
+  
+        return res.render('admin/users/users', {
+          users,
+          success: 'Usuário deletado'
+        })
+
+      }      
     } catch (error) {
       console.error(error)
-    }
-
-    
-
-    if (user.total_recipes != 0) {
-
-      let results = await User.list()
-      const users = results.rows
-
-      return res.render('admin/users/users', {
-        users,
-        error: 'Usuários com receitas cadastradas não podem ser deletados'
-      })
-    } else {
-      
-      await User.delete(req.body.id)
-
-      let results = await User.list()
-      const users = results.rows
-
-      return res.render('admin/users/users', {
-        users,
-        success: 'Usuário deletado'
-      })
     }
   }
 }
