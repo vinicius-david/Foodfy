@@ -2,128 +2,44 @@ const db = require('../../config/db')
 
 const { hash } = require('bcryptjs')
 
+const Base = require('./Base')
+
+Base.init({ table: 'users' })
+
 module.exports = {
-  list() {
-    try {
+  ...Base,
+  // async create(data) {
+  //   try {
 
-      const query = `SELECT * FROM users`
+  //   const query = `
+  //     INSERT INTO users (
+  //       name,
+  //       email,
+  //       password,
+  //       reset_token,
+  //       reset_token_expires,
+  //       is_admin
+  //     ) VALUES ($1, $2, $3, $4, $5, $6)
+  //     RETURNING id
+  //   `
 
-      return db.query(query)
-      
-    } catch (err) {
-      console.error(err)
-    }
-  },
-  async create(data) {
-    try {
+  //   const passwordHash = await hash(data.password, 8)
 
-    const query = `
-      INSERT INTO users (
-        name,
-        email,
-        password,
-        reset_token,
-        reset_token_expires,
-        is_admin
-      ) VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING id
-    `
+  //   const values = [
+  //     data.name,
+  //     data.email,
+  //     passwordHash,
+  //     data.reset_token,
+  //     data.reset_token_expires,
+  //     data.is_admin
+  //   ]
 
-    const passwordHash = await hash(data.password, 8)
+  //   const results = await db.query(query, values)
 
-    const values = [
-      data.name,
-      data.email,
-      passwordHash,
-      data.reset_token,
-      data.reset_token_expires,
-      data.is_admin
-    ]
+  //   return results.rows[0].id
 
-    const results = await db.query(query, values)
-
-    return results.rows[0].id
-
-    } catch (err) {
-      console.error(err)
-    }
-  },
-  async find(filters) {
-    try {
-
-      // const query = `SELECT users.*, count(recipes) AS total_recipes 
-      // FROM users
-      // LEFT JOIN recipes ON (recipes.user_id = users.id)
-      // WHERE users.id = $1 GROUP by users.id`
-
-      // const values = [
-      //   id
-      // ]
-
-      // return db.query(query, values)
-
-      let query = `SELECT users.*, count(recipes) AS total_recipes
-        FROM users
-        LEFT JOIN recipes ON (recipes.user_id = users.id)
-      `
-
-      Object.keys(filters).map(key => {
-        // WHERE, OR, AND
-        query = `${query}
-          ${key}
-        `
-        Object.keys(filters[key]).map(field => {
-          query = `${query} users.${field} = '${filters[key][field]}' GROUP BY users.id`
-        })
-      })
-  
-      const results = await db.query(query)
-      
-      return results.rows[0]
-
-    } catch (err) {
-      console.error(err)
-    }
-  },
-  async update(id, fields) {
-    try {
-      
-      let query = `UPDATE users SET`
-
-      Object.keys(fields).map((key, index, array) => {
-        if((index + 1) < array.length) {
-          query = `${query}
-            ${key} = '${fields[key]}',
-          `
-        } else {
-          // last iteration
-          query = `${query}
-            ${key} = '${fields[key]}'
-            WHERE id = ${id}
-          `
-        }
-      })
-  
-      await db.query(query)
-      return
-
-    } catch (err) {
-      console.error(err)
-    }
-  },
-  delete(id) {
-    try {
-      
-    const query = `DELETE FROM users WHERE id = $1`
-    
-    const values = [
-      id
-    ]
-
-    return db.query(query, values)
-
-    } catch (err) {
-      console.error(err)
-    }
-  }
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // },
 }

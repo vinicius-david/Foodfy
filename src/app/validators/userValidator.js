@@ -29,7 +29,7 @@ module.exports = {
       error: 'Coloque sua senha para atualizar seu cadastro'
     })
 
-    const user = await User.find({ where: {id} })
+    const user = await User.find(id)
     const passed = await compare(password, user.password)
 
     if (!passed) return res.render('admin/users/show', {

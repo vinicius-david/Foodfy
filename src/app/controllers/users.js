@@ -1,111 +1,171 @@
 const crypto = require('crypto')
 const mailer = require('../../lib/mailer')
-const { hash } = require('bcryptjs')
+const { hash, compare } = require('bcryptjs')
 
 const User = require('../models/User')
 
+function isAdmin(req) {
+  if (req == 'on') {
+    is_admin = true
+    return is_admin
+  } else {
+    is_admin = false
+    return is_admin
+  }
+}
+
 module.exports = {
   async list(req, res) {
+    try {
 
-    let results = await User.list()
-    const users = results.rows
+      const users = await User.findAll()
 
-    return res.render('admin/users/users', { users })
+      return res.render('admin/users/users', { users })
+      
+    } catch (error) {
+      console.error(error)
+    }
   },
   create(req, res) {
-    return res.render('admin/users/create')
+    try {
+
+      return res.render('admin/users/create')
+
+    } catch (error) {
+      console.error(error)
+    }
   },
   async post(req, res) {
+    try {
 
-    //create a random users password as token
-    const token = crypto.randomBytes(20).toString('hex')
-    req.body.password = token
-    req.body.reset_token = token
+      //boolean admin status
+      if (req.body.is_admin) {
+        req.body.is_admin = true
+      } else {
+        req.body.is_admin = false
+      }
 
-    // create token expiration date
-    let now = new Date()
-    now = now.setHours(now.getHours() + 1)
-    req.body.reset_token_expires = now
+      const { name, email, is_admin } = req.body
 
-    //boolean admin status
-    if (req.body.is_admin) {
-      req.body.is_admin = true
-    } else {
-      req.body.is_admin = false
-    }
+      //create a random users password as a reset_token
+      const reset_token = crypto.randomBytes(20).toString('hex')
+      let password = reset_token
 
-    const userId = await User.create(req.body)
+      password = await hash(password, 8)
+      console.log(password)
 
-    //send email with token
-    await mailer.sendMail({
-      to: req.body.email,
-      from: 'no-reply@launchstore.com.br',
-      sub: 'Solicitação de registro de usuário',
-      html: `
-        <h2>Bem vindo ao Foodfy</h2>
-        <p>Sua senha atual é ${token}</p>
-        <p>Clique no link abaixo para definit uma nova senha!</p>
-        <p>
-          <a href='http://localhost:3000/users/reset-password?token=${token}' target='_blank'>
-          DEFINIR NOVA SENHA
-          </a>
-        </p>
-      `
-    })
+      // create token expiration date
+      let now = new Date()
+      now = now.setHours(now.getHours() + 1)
+      const reset_token_expires = now
 
-    req.session.userId = userId
-    
-    return res.render(`admin/users/users`, {
-      success: 'Novo usuário criado, use o link enviado por email para redefinir a sua senha'
-    })
+      console.log(is_admin)
+
+      const userId = await User.create({
+        name,
+        email,
+        password,
+        reset_token,
+        reset_token_expires,
+        is_admin,
+      })
+
+      //send email with token and password
+      await mailer.sendMail({
+        to: email,
+        from: 'no-reply@foodfy.com.br',
+        sub: 'Solicitação de registro de usuário',
+        html: `
+          <h2>Bem vindo ao Foodfy</h2>
+          <p>Sua senha atual é ${reset_token}</p>
+          <p>Clique no link abaixo para definit uma nova senha!</p>
+          <p>
+            <a href='http://localhost:3000/users/reset-password?token=${reset_token}' target='_blank'>
+            DEFINIR NOVA SENHA
+            </a>
+          </p>
+        `
+      })
+      
+      return res.render(`admin/users/users`, {
+        success: 'Novo usuário criado, use o link enviado por email para redefinir a sua senha'
+      })
+ 
+    } catch (error) {
+      console.error(error)
+    }    
   },
   async show(req, res) {
+    try {
 
-    const id = req.params.id
+      const user = await User.find(req.params.id)
 
-    let results = await User.find({ where: {id} })
-    const user = results
+      return res.render('admin/users/show', { user })
 
-    return res.render('admin/users/show', { user })
+    } catch (error) {
+      console.error(error)
+    }
   },
   async edit(req, res) {
+    try {
 
-    const id = req.params.id
+      const user = await User.find(req.params.id)
 
-    let results = await User.find({ where: {id} })
-    const user = results
+      return res.render('admin/users/edit', { user })
 
-    return res.render('admin/users/edit', { user })
+    } catch (error) {
+      console.error(error)
+    }
   },
   async put(req, res) {
+    try {
 
-    const userId = req.body.id
+      const { id, name, email } = req.body
 
-    //boolean admin status
-    if (req.body.is_admin) {
-      req.body.is_admin = true
-    } else {
-      req.body.is_admin = false
+      //boolean admin status
+      if (!req.body.is_admin) {
+
+        await User.update(id, {
+          name,
+          email
+        })
+
+      } else {
+
+        let is_admin = ''
+
+        is_admin = isAdmin(req.body.is_admin)
+        console.log(req.body.is_admin)
+        console.log(is_admin)
+
+        await User.update(id, {
+          name,
+          email,
+          is_admin
+        })
+      }
+
+      const users = await User.findAll()
+
+      return res.render(`admin/users/users`, {
+        users,
+        success: 'Os dados do usuário foram atualizados'
+      })
+
+    } catch (error) {
+      console.error(error)
     }
-
-    if (req.body.password) return req.body.password = await hash(req.body.password, 8)    
-
-    await User.update(userId, req.body)
-
-    let results = await User.list()
-    const users = results.rows
-
-    return res.render(`admin/users/users`, {
-      users,
-      success: 'Os dados do usuário foram atualizados'
-    })
   },
   async delete(req, res) {
+    try {
 
-    const id = req.body.id
+      const user = await User.find(req.body.id)
+      
+    } catch (error) {
+      console.error(error)
+    }
 
-    let results = await User.find({ where: {id} })
-    const user = results
+    
 
     if (user.total_recipes != 0) {
 

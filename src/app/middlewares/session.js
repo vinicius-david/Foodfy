@@ -15,9 +15,7 @@ module.exports = {
   },
   async onlyAdmins(req, res, next) {
 
-    const id = req.session.userId
-
-    const user = await User.find({ where: {id} })
+    const user = await User.find(req.session.userId)
 
     if (!user.is_admin) return res.send('Only admins')
 

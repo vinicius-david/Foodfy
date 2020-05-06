@@ -31,8 +31,6 @@ module.exports = {
     
     let recipes = await getRecipes()
 
-    console.log(recipes)
-
     // get images
 
     async function getImage(recipeId) {
