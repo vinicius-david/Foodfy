@@ -41,7 +41,7 @@ module.exports = {
 
       const filesPromise = file.map(file => File.create({
         name: file.filename,
-        path: `/images/${file.filename}`
+        path: `public/images/${file.filename}`
       }))
       let fileId = await Promise.all(filesPromise)
       
@@ -62,7 +62,6 @@ module.exports = {
     try {
 
       // get chef
-
       const { id } = req.params
 
       let chef = await Chef.findOneWithParam({ where: {id} }, 'recipes', 'chef_id', 'chefs.id')
@@ -70,24 +69,15 @@ module.exports = {
       if (!chef) return res.send('Chef não encontrado.')
 
       // get chef avatar
-
       async function getChefImage(chefId) {
 
         let results = await Chef.file(chefId)
         const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
 
-        return files
+        return files[0]
       }
 
-      const chefsPromise = chef.map(async chef => {
-
-        chef.img = await getChefImage(chef.id)
-
-        return chef
-      })
-      
-      chef = await Promise.all(chefsPromise)
-      chef = chef[0]
+      chef.img = await getChefImage(chef.id)
 
       // get recipes
 
@@ -153,18 +143,18 @@ module.exports = {
     
         const newFilesPromise = req.files.map(file => File.create({
           name: file.filename,
-          path: `/images/${file.filename}`
+          path: `public/images/${file.filename}`
         }))
         
         let fileId = await Promise.all(newFilesPromise)
         
         let values = {
           name: req.body.name,
-          file_id: fileId[0].rows[0].id,
+          file_id: fileId[0],
           id: req.body.id
         }
         
-        await Chef.update(values)
+        await Chef.update(id, values)
         
         await File.deleteChefFile(file[0].file_id)
         

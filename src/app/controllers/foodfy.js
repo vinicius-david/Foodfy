@@ -5,7 +5,7 @@ module.exports = {
   async index(req, res) {
     try {
 
-      const recipes = await Recipe.findAllAs('', 'chefs.name', 'chef_name', 'chefs', 'chef_id', '', 'created_at', 'DESC')
+      const recipes = await Recipe.findAllAs('', 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs', '', 'created_at', 'DESC')
 
       return res.render('foodfy/index', { recipes })
       
@@ -20,7 +20,7 @@ module.exports = {
     try {
 
       // get recipes
-      let recipes = await Recipe.findAllAs('', 'chefs.name', 'chef_name', 'chefs', 'chef_id', '', 'created_at', 'DESC')
+      let recipes = await Recipe.findAllAs('', 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs', '', 'created_at', 'DESC')
 
       // get images
       async function getImage(recipeId) {
@@ -51,7 +51,7 @@ module.exports = {
 
       const { id } = req.params
 
-      const recipe = await Recipe.findOneAs({ where: {id} }, 'chefs.name', 'chef_name', 'chefs', 'chef_id', '', 'created_at', 'DESC')
+      const recipe = await Recipe.findOneAs({ where: {id} }, 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'recipes', '', 'created_at', 'DESC')
 
       if (!recipe) return res.send('Receita não encontrada')
 

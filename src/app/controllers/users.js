@@ -42,14 +42,11 @@ module.exports = {
       let password = reset_token
 
       password = await hash(password, 8)
-      console.log(password)
 
       // create token expiration date
       let now = new Date()
       now = now.setHours(now.getHours() + 1)
       const reset_token_expires = now
-
-      console.log(is_admin)
 
       const userId = await User.create({
         name,
@@ -76,8 +73,11 @@ module.exports = {
           </p>
         `
       })
+
+      const users = await User.findAll()
       
       return res.render(`admin/users/users`, {
+        users,
         success: 'Novo usuário criado, use o link enviado por email para redefinir a sua senha'
       })
  

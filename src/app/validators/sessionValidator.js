@@ -6,7 +6,7 @@ module.exports = {
 
     let { email, password } = req.body
     
-    const user = await User.find({ where: {email} })
+    const user = await User.findOne({ where: {email} })
 
     if (!user) return res.render('session/login', {
       user: req.body,
@@ -29,7 +29,7 @@ module.exports = {
     const { email } = req.body
     try {
 
-      let user = await User.find({ where: { email } })
+      let user = await User.findOne({ where: { email } })
       
       if (!user) return res.render('session/forgot-password', {
         user: req.body,
@@ -49,12 +49,19 @@ module.exports = {
       let { email, password, passwordRepeat, token } = req.body
 
       // find user
-      const user = await User.find({ where: {email} })
+      const user = await User.findOne({ where: {email} })
 
       if (!user) return res.render('session/reset-password', {
         user: req.body,
         token,
         error: 'Usuário não cadastrado'
+      })
+
+      //check fields
+      if (!password || !passwordRepeat) return res.render('session/reset-password', {
+        user: req.body,
+        token,
+        error: 'Preencha os campos de senhas'
       })
 
       //check passwords

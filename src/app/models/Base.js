@@ -21,11 +21,11 @@ function find(filters, table) {
   return db.query(query)
 }
 
-function findAs(filters, table, original, changed, target, param, group, order, direction) {
+function findAs(filters, table, original, changed, target, param1, param2, group, order, direction) {
 
   let query = `SELECT ${table}.*, ${original} AS ${changed}
     FROM ${table}
-    LEFT JOIN ${target} ON (${table}.${param} = ${table}.id)
+    LEFT JOIN ${target} ON (${table}.${param1} = ${param2}.id)
   `
   if (filters) {
 
@@ -52,6 +52,7 @@ function findAs(filters, table, original, changed, target, param, group, order, 
 
   return db.query(query)
 }
+
 
 function findAndCount(filters, table, target, param, group, order, direction) {
 
@@ -149,10 +150,10 @@ const Base = {
       console.error(error)
     }
   },
-  async findOneAs(filters, original, changed, target, param, group, order, direction) {
+  async findOneAs(filters, original, changed, target, param1, param2, group, order, direction) {
     try {
      
-      const results = await findAs(filters, this.table, original, changed, target, param, group, order, direction)
+      const results = await findAs(filters, this.table, original, changed, target, param1, param2, group, order, direction)
       
       return results.rows[0]
       
@@ -160,10 +161,11 @@ const Base = {
       console.error(error)
     }
   },
-  async findAllAs(filters, original, changed, target, param, group, order, direction) {
+  async findAllAs(filters, original, changed, target, param1, param2, group, order, direction) {
     try {
-     
-      const results = await findAs(filters, this.table, original, changed, target, param, group, order, direction)
+
+      
+      const results = await findAs(filters, this.table, original, changed, target, param1, param2, group, order, direction)
       
       return results.rows
       
@@ -179,10 +181,8 @@ const Base = {
 
       Object.keys(fields).map(key => {
         keys.push(key)
-        values.push(fields[key])
+        values.push(`'${fields[key]}'`)
       })
-
-      console.log(values.join(','))
 
       const query = `INSERT INTO ${this.table} (${keys.join(',')})
         VALUES (${values.join(',')})
