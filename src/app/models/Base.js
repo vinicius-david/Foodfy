@@ -21,11 +21,11 @@ function find(filters, table) {
   return db.query(query)
 }
 
-function findAs(filters, table, original, changed, target, param1, param2, group, order, direction) {
+function findAndCount(filters, table, target, param, group, order, direction) {
 
-  let query = `SELECT ${table}.*, ${original} AS ${changed}
+  let query = `SELECT ${table}.*, count(${target}) AS total_${target}
     FROM ${table}
-    LEFT JOIN ${target} ON (${table}.${param1} = ${param2}.id)
+    LEFT JOIN ${target} ON (${target}.${param} = ${table}.id)
   `
   if (filters) {
 
@@ -53,12 +53,11 @@ function findAs(filters, table, original, changed, target, param1, param2, group
   return db.query(query)
 }
 
+function findAs(filters, table, original, changed, target, param1, param2, group, order, direction) {
 
-function findAndCount(filters, table, target, param, group, order, direction) {
-
-  let query = `SELECT ${table}.*, count(${target}) AS total_${target}
+  let query = `SELECT ${table}.*, ${original} AS ${changed}
     FROM ${table}
-    LEFT JOIN ${target} ON (${target}.${param} = ${table}.id)
+    LEFT JOIN ${target} ON (${table}.${param1} = ${param2}.id)
   `
   if (filters) {
 
@@ -94,17 +93,6 @@ const Base = {
     this.table = table
 
     return this
-  },
-  async find(id) {
-    try {
-
-      const results = await find({ where: { id } }, this.table)
-    
-      return results.rows[0]
-      
-    } catch (error) {
-      console.error(error)
-    }
   },
   async findOne(filters) {
     try {

@@ -13,8 +13,7 @@ module.exports = {
       async function getRecipes() {
 
         //check if is admin
-        const id = req.session.userId
-        const user = await User.find(id)
+        const user = await User.findOne({ where: { id: req.session.userId } })
 
         if (user.is_admin) {
 

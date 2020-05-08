@@ -21,7 +21,7 @@ module.exports = {
 
     req.session.destroy()
 
-    return res.redirect('/users/login')
+    return res.redirect('/session/login')
   },
   forgotForm(req, res) {
     return res.render('session/forgot-password')
@@ -52,7 +52,7 @@ module.exports = {
           <h2>Esqueceu a senha?</h2>
           <p>Clique no link abaixo para recuperar sua senha!</p>
           <p>
-            <a href='http://localhost:3000/users/reset-password?token=${token}' target='_blank'>
+            <a href='http://localhost:3000/session/reset-password?token=${token}' target='_blank'>
             RECUPERAR SENHA
             </a>
           </p>

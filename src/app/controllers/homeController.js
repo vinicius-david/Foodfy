@@ -127,5 +127,8 @@ module.exports = {
     } catch (error) {
       console.error(error)
     }
+  },
+  admin(req,res) {
+    return res.render('admin/index')
   }
 }

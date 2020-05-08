@@ -88,7 +88,7 @@ module.exports = {
   async show(req, res) {
     try {
 
-      const user = await User.find(req.params.id)
+      const user = await User.findOne({ where: { id: req.params.id } })
 
       return res.render('admin/users/show', { user })
 
@@ -99,7 +99,7 @@ module.exports = {
   async edit(req, res) {
     try {
 
-      const user = await User.find(req.params.id)
+      const user = await User.findOne({ where: { id: req.params.id } })
 
       return res.render('admin/users/edit', { user })
 

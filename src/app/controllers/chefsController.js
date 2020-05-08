@@ -1,3 +1,5 @@
+const { unlinkSync } = require('fs')
+
 const Chef = require('../models/Chef')
 const Recipe = require('../models/Recipe')
 const File = require('../models/File')
@@ -135,11 +137,8 @@ module.exports = {
         const chef = await Chef.findOneWithParam({ where: {id} }, 'recipes', 'chef_id', 'chefs.id')
   
         // get chef avatar
-        results = await Chef.file(chef.id)
-        const file = results.rows.map(file => ({
-          ...file,
-          src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
-        }))
+        let results = await Chef.file(chef.id)
+        const file = results.rows[0]
     
         const newFilesPromise = req.files.map(file => File.create({
           name: file.filename,
@@ -155,9 +154,13 @@ module.exports = {
         }
         
         await Chef.update(id, values)
-        
-        await File.deleteChefFile(file[0].file_id)
-        
+
+        console.log(file)
+
+        // delete chef old avatar
+        await unlinkSync(file.path)
+        await File.delete(file.file_id)
+                
       }
       
       return res.redirect(`/admin/chefs/${req.body.id}`)
@@ -175,17 +178,16 @@ module.exports = {
       const chef = await Chef.findOneWithParam({ where: {id} }, 'recipes', 'chef_id', 'chefs.id')
 
       // get chef avatar
-      results = await Chef.file(chef.id)
-      const file = results.rows.map(file => ({
-        ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
-      }))
+      let results = await Chef.file(chef.id)
+      const file = results.rows[0]
         
       if (chef.total_recipes == 0) {
           
         await Chef.delete(id)
 
-        await File.deleteChefFile(file[0].file_id)
+        // delete chef old avatar
+        await unlinkSync(file.path)
+        await File.delete(file.file_id)
           
         return res.redirect('/admin/chefs')
         

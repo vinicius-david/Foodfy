@@ -3,7 +3,7 @@ const User = require('../models/User')
 module.exports = {
   onlyUsers(req, res, next) {
 
-    if (!req.session.userId) return res.redirect('/users/login')
+    if (!req.session.userId) return res.redirect('/session/login')
 
     next()
   },
@@ -15,7 +15,7 @@ module.exports = {
   },
   async onlyAdmins(req, res, next) {
 
-    const user = await User.find(req.session.userId)
+    const user = await User.findOne({ where: { id: req.session.userId } })
 
     if (!user.is_admin) return res.send('Only admins')
 
