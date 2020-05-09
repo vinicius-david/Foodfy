@@ -5,16 +5,35 @@ module.exports = {
   async index(req, res) {
     try {
 
-      const recipes = await Recipe.findAllAs('', 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs', '', 'created_at', 'DESC')
+      // get recipes
+      let recipes = await Recipe.findAllAs('', 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs', '', 'created_at', 'DESC')
 
-      return res.render('foodfy/index', { recipes })
+      // get images
+      async function getImage(recipeId) {
+
+        let results = await Recipe.files(recipeId)
+        const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
+
+        return files[0]
+      }
+
+      const recipesPromisse = recipes.map(async recipe => {
+
+        recipe.img = await getImage(recipe.id)
+
+        return recipe
+      })
+
+      recipes = await Promise.all(recipesPromisse)
+
+      return res.render('home/index', { recipes })
       
     } catch (error) {
       console.error(error)
     }
   },
   about(req, res) {
-    return res.render('foodfy/about')
+    return res.render('home/about')
   },
   async recipes(req, res) {
     try {
@@ -40,7 +59,7 @@ module.exports = {
 
       recipes = await Promise.all(recipesPromisse)
 
-      return res.render('foodfy/recipes', { recipes })
+      return res.render('home/recipes', { recipes })
       
     } catch (error) {
       console.error(error)
@@ -51,7 +70,7 @@ module.exports = {
 
       const { id } = req.params
 
-      const recipe = await Recipe.findOneAs({ where: {id} }, 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'recipes', '', 'created_at', 'DESC')
+      const recipe = await Recipe.findOneAs({ where: {id} }, 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs', '', 'created_at', 'DESC')
 
       if (!recipe) return res.send('Receita não encontrada')
 
@@ -61,7 +80,7 @@ module.exports = {
         src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
       }))
 
-      return res.render('foodfy/show', { recipe, files })
+      return res.render('home/show', { recipe, files })
       
     } catch (error) {
       console.error(error)
@@ -89,7 +108,7 @@ module.exports = {
   
       chefs = await Promise.all(chefsPromisse)
   
-      return res.render('foodfy/chefs', { chefs })
+      return res.render('home/chefs', { chefs })
       
     } catch (error) {
       console.error(error)
@@ -122,7 +141,7 @@ module.exports = {
   
       recipes = await Promise.all(recipesPromisse)
   
-      return res.render('foodfy/recipes', { recipes })
+      return res.render('home/filter', { recipes, filter })
       
     } catch (error) {
       console.error(error)

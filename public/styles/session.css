@@ -1,42 +1,33 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-family: 'Roboto';
+.session-header {
+  padding: 15px 0;
+  text-align: center;
+  margin-top: 20px;
 }
 
-body header .header-links {
-  padding: 35px;
-  display: flex;
-  justify-content: center;
-}
-
-body form {
+.session-container {
   margin-top: 100px;
   width: 500px;
   margin: 0 auto;
 }
 
-body form .title {
+.session-container .title {
   display: flex;
   justify-content: center;
   margin-top: 100px;
 }
 
-body form .title h2 {
+.session-container .title h2 {
   font-size: 24px;
   font-weight: 700;
 }
 
-.fields h3 {
+.session-container .fields h3 {
   font-size: 16px;
   font-weight: 700;
   margin-top: 35px;
 }
 
-.fields .input input {
+.session-container .fields .input input {
   width: 100%;
   margin-top: 10px;
   border: 1px solid #dddddd;
@@ -47,7 +38,7 @@ body form .title h2 {
   box-sizing: border-box;
 }
 
-form .submit {
+.session-container .submit {
   margin-top: 45px;
   display: flex;
   justify-content: space-between;
@@ -55,56 +46,29 @@ form .submit {
   position: relative;
 }
 
-.submit a {
+.session-container .submit a {
   font-size: 16px;
   text-decoration: none;
   color: #75757596;
   font-weight: 700;
 }
 
-.submit button {
+.session-container .submit button {
   font-size: 16px;
   color: white;
   font-weight: 700;
-  background-color: #6558c3;
+  background-color: var(--primary-color);
+  
   padding: 8px 16px;
   border-radius: 4px;
+
   position: absolute;
   right: 0;
   top: -8px;
 }
 
-/* MESSAGES ------------------------------------------------------------------*/
-
-@keyframes hidemessage {
-  to {
-    top: -50px;
-    opacity: 0;
-  }
-}
-
-.messages {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  padding: 15px;
-
-  width: 330px;
-  height: 105px;
-  color: white;
-
-  top: 12px;
-  right: 18px;
-  opacity: 1;
-
-  animation: hidemessage 400ms 5s ease-out forwards;
-}
-
-.messages.error {
-  background-color: #DC4747;
-}
-
-.messages.success {
-  background-color: #01B12A;
+.session-container .submit button:hover {
+  background-color: var(--buttonhover-color);
+  transition: 300ms;
+  cursor: pointer;
 }

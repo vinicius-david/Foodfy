@@ -2,42 +2,46 @@
 
 {% block content %}
 
-<form method='POST' action='/session/login'>
+<section class='session-container'>
 
-  <div class='title'>
-    <h2>Iniciar sessão</h2>
-  </div>
+  <form method='POST' action='/session/login'>
 
-  <div class='fields'>
-
-    <h3>Email</h3>
-
-    <div class='input'>
-      <input name='email' type='text' placeholder='Digite seu email' value='{{user.email}}' onblur="Validate.apply(this, 'isEmail')">
+    <div class='title'>
+      <h2>Iniciar sessão</h2>
     </div>
 
-  </div>
+    <div class='fields'>
 
-  <div class='fields'>
+      <h3>Email</h3>
 
-    <h3>Senha</h3>
+      <div class='input'>
+        <input name='email' type='text' placeholder='Digite seu email' value='{{user.email}}' onblur="Validate.apply(this, 'isEmail')">
+      </div>
 
-    <div class='input'>
-      <input name='password' type='password' placeholder='Digite sua senha'>
     </div>
 
-  </div>
+    <div class='fields'>
 
-  <div class='submit'>
+      <h3>Senha</h3>
+
+      <div class='input'>
+        <input name='password' type='password' placeholder='Digite sua senha'>
+      </div>
+
+    </div>
+
+    <div class='submit'>
+      <div>
+        <a href='/session/forgot-password'>Perdeu a senha?</a>
+      </div>
+
+      <div>
+        <button type='submit'>Acessar</button>
+      </div>
     <div>
-      <a href='/session/forgot-password'>Perdeu a senha?</a>
-    </div>
 
-    <div>
-      <button type='submit'>Acessar</button>
-    </div>
-  <div>
+  </form>
 
-</form>
+</section>
 
 {% endblock content %}

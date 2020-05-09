@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
-
 * {
   margin: 0;
   padding: 0;
@@ -7,9 +5,14 @@
   font-family: 'Roboto';
 }
 
+:root {
+  --primary-color: rgb(223, 118, 49);
+  --buttonhover-color: rgb(179, 95, 27);
+}
+
 /* LAYOUT --------------------------------------------------------------------*/
 
-body {
+.home-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,13 +20,13 @@ body {
   min-height: 100vh;
 }
 
-header {
+.home-header {
   text-align: center;
   margin-top: 36px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
-header .header-links {
+.home-header-links {
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -32,7 +35,7 @@ header .header-links {
   margin: 0 auto;
 }
 
-header .header-links a {
+.home-header-links a {
   text-decoration: none;
   margin-right: 40px;
   
@@ -40,19 +43,19 @@ header .header-links a {
   color: black;
 }
 
-header .header-links a.active {
+.home-header-links a.active {
   font-weight: 700;
 }
 
-header .header-links a img {
+.home-header-links a img {
   margin-right: 90px;
 }
 
-header .header-links .filters {
+.home-header-links .filters {
   position: relative;
 }
 
-header .header-links .filters input {
+.home-header-links .filters input {
   border: 1px solid #dddddd;
   width: 250px;
   height: 12px;
@@ -66,8 +69,8 @@ header .header-links .filters input {
   right: 45px;
 }
 
-header .header-links .filters button {
-  background-color: #6558C3;
+.home-header-links .filters button {
+  background-color: var(--primary-color);
 
   color: white;
   font-size: 15px;
@@ -79,6 +82,12 @@ header .header-links .filters button {
 
   position: absolute;
   right: 0;
+}
+
+.home-header-links .filters button:hover {
+  background-color: var(--buttonhover-color);
+  transition: 300ms;
+  cursor: pointer;
 }
 
 footer {
@@ -95,9 +104,9 @@ footer h1 {
   text-align: center;
 }
 
-/* FOODFY --------------------------------------------------------------------*/
+/* INDEX ---------------------------------------------------------------------*/
 
-.card {
+.home-card {
   width: 780px;
   margin: 0 auto;
   padding-top: 66px;
@@ -115,11 +124,11 @@ footer h1 {
   justify-content: center;
 }
 
-.card .card-text {
+.home-card .card-text {
   margin-top: 52px;
 }
 
-.card .card-text h1 {
+.home-card .card-text h1 {
   font-size: 32px;
   text-align: left;
   color: #111111;
@@ -129,7 +138,7 @@ footer h1 {
   margin: 0 auto;
 }
 
-.card .card-text h2 {
+.home-card .card-text h2 {
   font-size: 18px;
   text-align: justify;
   color: #000000;
@@ -139,37 +148,37 @@ footer h1 {
   margin-top: 10px;
 }
 
-.popular {
+.home-recipes {
   width: 940px;
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
-.popular h1 {
+.home-recipes h1 {
   font-size: 24px;
   color: #111111;
   margin-bottom: 24px;
 }
 
-.popular .popular-recipes {
+.home-recipes .recipes {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
 }
 
-.popular .popular-recipes .recipe img {
+.home-recipes .recipes .recipe img {
   width: 300px;
   height: 140px;
   border-radius: 15px;
 }
 
-.popular .popular-recipes .recipe h2 {
+.home-recipes .recipes .recipe h2 {
   font-size: 18px;
   margin-top: 20px;
 }
 
-.popular .popular-recipes .recipe h3 {
+.home-recipes .recipes .recipe h3 {
   font-size: 14px;
   color: #777777;
   margin-top: 5px;
@@ -177,32 +186,32 @@ footer h1 {
 
 /* ABOUT ---------------------------------------------------------------------*/
 
-.about {
+.home-about {
   width: 940px;
   margin: 0 auto;
 }
 
-.about h1 {
+.home-about h1 {
   color: #111111;
   font-size: 24px;
   
   margin-bottom: 20px;
 }
 
-.about h2 {
+.home-about h2 {
   color: #111111;
   font-size: 20px;
   margin-bottom: 20px;
 }
 
-.about h3 {
+.home-about h3 {
   color: #444444;
   font-size: 18px;
 
   margin-bottom: 30px;
 }
 
-.about h3:last-child {
+.home-about h3:last-child {
   margin-bottom: 50px;
 }
 
@@ -217,7 +226,7 @@ footer h1 {
   margin: 0 auto;
 }
 
-.all-recipes .recipes img {
+.all-recipes .recipe img {
   width: 300px;
   height: 140px;
   border-radius: 15px;
@@ -229,25 +238,25 @@ footer h1 {
   margin-bottom: 24px;
 }
 
-.all-recipes .recipes img {
+.all-recipes .recipe img {
   width: 300px;
   height: 140px;
   border-radius: 15px;
   margin-top: 10px;
 }
 
-.all-recipes .recipes h2 {
+.all-recipes .recipe h2 {
   font-size: 18px;
   margin-top: 20px;
 }
 
-.all-recipes .recipes h3 {
+.all-recipes .recipe h3 {
   font-size: 14px;
   color: #777777;
   margin-top: 5px;
 }
 
-.all-recipes .recipes:last-child h3 {
+.all-recipes .recipe:last-child p {
   margin-bottom: 50px;
 }
 
@@ -343,7 +352,7 @@ footer h1 {
 
 /* CHEFS LIST ----------------------------------------------------------------*/
 
-.all-chefs {
+.home-chefs-list {
   width: 940px;
   margin: 0 auto;
 
@@ -353,13 +362,13 @@ footer h1 {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.all-chefs .chef {
+.home-chefs-list .chef {
   margin-top: 30px;
 
   display: flex;
 }
 
-.all-chefs .chef-img img {
+.home-chefs-list .chef-img img {
   width: 64px;
   height: 64px;
 
@@ -367,13 +376,13 @@ footer h1 {
   margin-right: 20px;
 }
 
-.all-chefs .chef-info h2 {
+.home-chefs-list .chef-info h2 {
   font-size: 18px;
   margin-top: 5px;
   margin-bottom: 10px;
 }
 
-.all-chefs .chef-info p {
+.home-chefs-list .chef-info p {
   font-size: 14px;
   color: #666666;
   text-decoration: none;
@@ -414,6 +423,10 @@ footer h1 {
 .filter-card .recipes p {
   font-size: 14px;
   color: #777777;
+}
+
+.filter-card .recipe:last-child p {
+  margin-bottom: 50px;
 }
 
 /* RECIPE GALLERY ------------------------------------------------------------*/

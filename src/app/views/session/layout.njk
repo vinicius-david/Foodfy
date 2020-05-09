@@ -4,27 +4,17 @@
 
   <title>Foodfy</title>
 
-  <link rel="stylesheet" href="/styles/session.css">
+  {% include 'parts/styles.njk' %}
 
 </head>
 
 <body>
 
-  {% if error %}
-    <div class='error messages'>
-      {{error}}
-    </div>
-  {% endif %}
-
-  {% if success %}
-    <div class='success messages'>
-      {{success}}
-    </div>
-  {% endif %}
+  {% include 'parts/messages.njk' %}
 
   <header>
 
-    <div class='header-links'>
+    <div class='session-header'>
 
       <a href="/"><img src="/images/logo.png" alt="Foodfy"></a>
     

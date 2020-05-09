@@ -8,15 +8,15 @@
 
 </head>
 
-<body>
+<body class='home-body'>
 
-  {% include 'parts/messages.njk' %}
-
-  {% include 'parts/admin-header.njk' %}
+  {% include 'parts/home-header.njk' %}
 
   {% block content %}{% endblock content %}
 
-  <script src='/scripts/admin.js'></script>
+  {% include 'parts/footer.njk' %}
+
+  <script src="/scripts/foodfy.js"></script>
 
 </body>
 

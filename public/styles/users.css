@@ -1,0 +1,173 @@
+/* USERS ---------------------------------------------------------------------*/
+
+.user-header-container {
+  width: 940px;
+  margin: 0 auto;
+  padding: 55px;
+
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.user-title h2 {
+  font-size: 24px;
+  margin-right: 440px;
+}
+
+.user-header-container .buttons {
+  position: absolute;
+  right: 55px;
+}
+
+.user-header-container .buttons button {
+  font-size: 14px;
+  color: white;
+  font-weight: 700;
+  background-color: var(--primary-color);
+  padding: 6px 24px;
+  border-radius: 4px;
+  margin-left: 15px;
+
+  width: 140px;
+}
+
+.user-header-container .buttons button:hover {
+  background-color: var(--buttonhover-color);
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.user-header-container #delete {
+  background-color: rgb(182, 43, 43, 0.9);
+  position: absolute;
+  right: 150px;
+}
+
+.user-header-container #delete:hover {
+  background-color: rgba(182, 43, 43);
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.user-header-container .buttons a {
+  text-decoration: none;
+  font-size: 14px;
+  color: white;
+  font-weight: 700;
+  background-color: rgb(182, 43, 43, 0.9);
+  padding: 6px 40px;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+
+.user-header-container .buttons a:hover {
+  background-color: rgb(182, 43, 43);
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.user-fields-container {
+  width: 940px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 40px;
+}
+
+.user-fields h3 {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.user-fields .input input {
+  width: 100%;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+
+  display: block;
+  box-sizing: border-box;
+}
+
+.user-admin-fields {
+  display: flex;
+  align-items: center;
+}
+
+.user-admin-fields h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+/* USERS LIST ----------------------------------------------------------------*/
+
+.user-header-container .buttons .new-button {
+  background-color: var(--primary-color);
+}
+
+.user-header-container .buttons .new-button:hover {
+  background-color: var(--buttonhover-color);
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.users-container {
+  width: 940px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 100px;
+}
+
+.users-container .user .name h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #111111;
+}
+
+.users-container .user .email h3 {
+  font-size: 14px;
+  color: #777777;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.users-container .user .links {
+  display: flex;
+  flex-direction: row;
+}
+
+.users-container .user .links a {
+  text-decoration: none;
+  margin-right: 26px;
+  font-size: 14px;
+}
+
+.users-container .user .links a.edit {
+  color: var(--primary-color);
+}
+
+.users-container .user .links a.edit:hover {
+  color: var(--buttonhover-color);
+  cursor: pointer;
+  text-decoration: underline;
+  transition: 300ms;
+}
+
+.users-container .user .links form button {
+  background-color: white;
+  color: rgb(182, 43, 43, 0.9);
+}
+
+.users-container .user .links form button:hover {
+  color: rgba(182, 43, 43);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 300ms;
+}

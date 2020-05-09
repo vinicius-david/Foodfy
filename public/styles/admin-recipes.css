@@ -1,0 +1,185 @@
+/* RECIPES -------------------------------------------------------------------*/
+
+.admin-recipes-title {
+  width: 940px;
+  margin: 0 auto;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  margin-top: 50px;
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-recipes-title button {
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+  background-color: var(--primary-color);
+  
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.admin-recipes-title button:hover {
+  background-color: var(--buttonhover-color);
+  transition: 300ms;
+  cursor: pointer;
+}
+
+.admin-recipes {
+  width: 940px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.admin-recipes .admin-recipe {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-gap: 8px;
+
+  margin-top: 20px;
+}
+
+.admin-recipes .admin-recipe img {
+  width: 172px;
+  height: 80px;
+
+  border-radius: 9px;
+}
+
+.admin-recipes .admin-recipe .admin-recipe-info h2 {
+  font-size: 18px;
+}
+
+.admin-recipes .admin-recipe .admin-recipe-info h3 {
+  font-size: 14px;
+  color: #777777;
+
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.admin-recipes .admin-recipe .admin-recipe-info a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.admin-recipes .admin-recipe .admin-recipe-info a:hover {
+  text-decoration: underline;
+  color: var(--buttonhover-color);
+  font-weight: 700;
+  transition: 300ms;
+}
+
+.admin-recipes .admin-recipe:last-child .admin-recipe-img {
+  margin-bottom: 60px;
+}
+
+/* SHOW ----------------------------------------------------------------------*/
+
+.show-content {
+  width: 940px;
+  margin: 0 auto;
+}
+
+.show-content .image img {
+  margin-top: 10px;
+  border-radius: 15px;
+}
+
+.show-content .title {
+  margin-top: 50px;
+  
+  font-size: 32px;
+  font-weight: 700;
+  
+  text-align: center;
+}
+
+.show-content .author {
+  font-size: 20px;
+  color: #777777;
+  
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.show-content .ingredients h1,
+.show-content .preparation h1,
+.show-content .information h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.show-content .ingredients-text,
+.show-content .preparation-text,
+.show-content .information-text {
+  margin-bottom: 50px;
+  font-size: 18px;
+  color: #444444;
+}
+
+.show-content .ingredients-text ul {
+  margin-left: 20px;
+}
+
+.show-content .preparation-text ul {
+  margin-left: 20px;
+}
+
+.show-content .information-text {
+  margin-bottom: 50px;
+}
+
+/* EDIT RECIPES --------------------------------------------------------------*/
+
+.recipes-edit {
+  width: 940px;
+  margin: 0 auto;
+}
+
+.recipes-edit .top-line {
+  margin-top: 55px;
+  display: grid;
+  grid-template-columns: 1fr 90px 132px;
+  grid-gap: 10px;
+}
+
+.recipes-edit .top-line h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.recipes-edit .forms button {
+  background-color: var(--primary-color);
+  color: white;
+
+  padding: 9px 20px;
+  border-radius: 4px;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.recipes-edit .top-line #delete-button {
+  background-color: rgb(182, 43, 43, 0.9);
+}
+
+.recipes-edit .forms button:hover {
+  background-color: var(--buttonhover-color);
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.recipes-edit .top-line #delete-button:hover {
+  background-color: rgba(182, 43, 43);
+  cursor: pointer;
+  transition: 300ms;
+}

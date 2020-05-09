@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class='recipes-title'>
+<div class='admin-recipes-title'>
 
   Gerenciar receitas
 
@@ -10,19 +10,19 @@
 
 </div>
 
-<div class='all-recipes'>
+<div class='admin-recipes'>
 
   {% for recipe in recipes %}
 
-    <div class='recipes'>
+    <div class='admin-recipe'>
 
-      <div class='recipe-img'>
+      <div class='admin-recipe-img'>
 
           <a><img src={{recipe.img}} alt={{recipe.title}}></a>
                   
       </div>
 
-      <div class='recipe-info'>
+      <div class='admin-recipe-info'>
         <h2>{{recipe.title}}</h2>
         <h3>por {{recipe.chef_name}}</h3>
         <a href='/admin/recipes/{{recipe.id}}'>Visualizar</a>

@@ -1,0 +1,26 @@
+{% extends 'home/layout.njk' %}
+
+{% block content %}
+
+  <div class='home-chefs-list'>
+
+    {% for chef in chefs %}
+
+      <div class='chef'>
+
+        <div class='chef-img'>
+          <a><img src={{chef.img}} alt={{chef.name}}></a>
+        </div>
+
+        <div class='chef-info'>
+          <h2>{{chef.name}}</h2>
+          <p>{{chef.total_recipes}} receitas</p>
+        </div>
+
+      </div>
+
+    {% endfor %}
+
+  </div>
+
+{% endblock content %}

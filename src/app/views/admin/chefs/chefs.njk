@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class='recipes-title'>
+<div class='admin-recipes-title'>
 
   Gerenciar chefs
 
@@ -10,11 +10,11 @@
 
 </div>
 
-<div class='all-chefs'>
+<div class='admin-chefs'>
 
   {% for chef in chefs %}
 
-    <div class='chef'>
+    <div class='admin-chef'>
 
       <div class='chef-img'>
         <a><img src={{chef.img}} alt={{chef.name}}></a>
