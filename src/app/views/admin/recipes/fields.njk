@@ -72,17 +72,17 @@
   
     <p>Ingredientes</p>
 
-    <div>
+    {% for ingredient in recipe.ingredients %}
 
-      {% for ingredient in recipe.ingredients %}
-        <input name='ingredients' type='text' value='{{ingredient}}'>
-      {% endfor %}
+      <div class='ingredient'>
+        <input name='ingredients[]' type='text' value='{{ingredient}}'>
+      </div>
 
-    </div>
+    {% endfor %}
 
     <div class='ingredient'>
 
-      <input name='ingredients[]' type='text' value='{{ingredient}}'>
+      <input name='ingredients[]' type='text'>
 
     </div>
   
@@ -90,23 +90,24 @@
 
   <div>
     <button type='button' class='add-ingredient'>Adicionar novo ingrediente</button>
+    <button type='button' class='remove-ingredient'>Remover ingrediente</button>
   </div>
 
   <div id='preparations'>
   
     <p>Modo de preparo</p>
 
-    <div>
+    {% for preparation in recipe.preparation %}
 
-      {% for preparation in recipe.preparation %}
+      <div class='preparation'>
         <input name='preparation[]' type='text' value='{{preparation}}'>
-      {% endfor %}
-
-    </div>
+      </div>
+      
+    {% endfor %}
 
     <div  class='preparation'>
 
-      <input name='preparation[]' type='text' value='{{preparation}}'>
+      <input name='preparation[]' type='text'>
     
     </div>
   
@@ -114,6 +115,7 @@
 
   <div>
     <button type='button' class='add-preparation'>Adicionar novo passo</button>
+    <button type='button' class='remove-preparation'>Remover passo</button>
   </div>
 
   <div>
@@ -125,4 +127,4 @@
 
 </div>
 
-<script src='/scripts/addField.js'></script>
+<script src='/scripts/recipeFields.js'></script>

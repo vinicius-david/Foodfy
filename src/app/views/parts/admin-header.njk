@@ -6,9 +6,26 @@
     <a href="/admin/recipes">Receitas</a>
     <a href="/admin/chefs">Chefs</a>
     <a href='/admin/users'>Usuários</a>
-    <form action='/session/logout' method='POST'>
-      <button>Sair</button>
-    </form>
+
+    <div class='accounts'>
+
+      <a href='/session/login'>
+        <i class='material-icons'>account_circle</i>
+      </a>
+      
+      <div class='submenu'>
+
+        <a href='/'>Home</a>
+        <a href='/admin/users/{{session.userId}}'>Minha conta</a>
+        <a href='/admin/recipes'>Minhas receitas</a>
+        <form action='/session/logout' method='POST'>
+          <button>Sair</button>
+        </form>
+        
+      </div>
+        
+    </div>
+    
   
   </div>
   

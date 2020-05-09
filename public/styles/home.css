@@ -37,7 +37,7 @@
 
 .home-header-links a {
   text-decoration: none;
-  margin-right: 40px;
+  margin-right: 30px;
   
   font-size: 16px;
   color: black;
@@ -48,7 +48,12 @@
 }
 
 .home-header-links a img {
-  margin-right: 90px;
+  margin-right: 40px;
+}
+
+.account .material-icons {
+  margin-top: 5px;
+  font-size: 28px;
 }
 
 .home-header-links .filters {
@@ -57,13 +62,13 @@
 
 .home-header-links .filters input {
   border: 1px solid #dddddd;
-  width: 250px;
+  width: 200px;
   height: 12px;
 
   font-size: 14px;
   padding: 8px 8px;
-  margin-right: 4px;
-  margin-left: 100px;
+  margin-right: 10px;
+  margin-left: 80px;
 
   position: relative;
   right: 45px;
