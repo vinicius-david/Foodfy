@@ -9,8 +9,14 @@
 
   <div class='image-field'>
 
-    <div class='avatar-title'>
-      <p>Avatar</p>
+    <div class='chef-upload-title'>
+      <p></p>
+
+      {% if chef %}
+        <p>Foto atual</p>
+      {% endif %}
+
+      <p>Nova foto</p>
     </div>
 
     <div id='avatar-send'>
@@ -18,10 +24,41 @@
         id='avatar-input'
         name='photo' 
         type='file'
-        accept='image/*' 
+        accept='image/*'
+        onchange="chefPhotoUpload.handleFileInput(event)"
         >
       <span>Enviar avatar</span>
     </div>
+
+    <div id='chef-photos-preview'>
+
+      <div class='first-column'>
+        <p></p>
+      </div>
+
+      {% if chef %}
+
+        <div class='old-photo'>
+          <img src='{{chef.img}}' alt='{{chef.img}}'>
+        </div>
+
+      {% endif %}
+
+      {% if files %}
+        {% for image in files %}
+
+          <div class='photo' id='{{image.id}}'>
+            <img src='{{image.src}}' alt='{{image.name}}'>
+            <i 
+              class='material-icons' 
+              onclick='chefPhotoUpload.removeOldPhoto(event)'>close</i>
+          </div>
+
+        {% endfor %}
+        <input type='hidden' name='removed_files'>
+      {% endif %}
+
+     </div>
 
   </div>
 

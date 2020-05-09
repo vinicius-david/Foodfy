@@ -170,9 +170,72 @@
   border-radius: 4px;
 }
 
-.admin-fields .image-field #avatar-send span:hover,
-.admin-fields .image-field #avatar-send:hover span {
+.admin-fields .image-field #avatar-send span:hover {
   background-color: var(--buttonhover-color);
   cursor: pointer;
   transition: 300ms;
 }
+
+/* PHOTO GALLERY -------------------------------------------------------------*/
+
+.chef-upload-title {
+  display: grid;
+  grid-template-columns: 150px 300px 300px;
+  grid-gap: 50px;
+
+  text-align: center;
+}
+
+#chef-photos-preview {
+  display: grid;
+  grid-template-columns: 150px 300px 300px;
+  grid-gap: 50px;
+}
+
+#chef-photos-preview .photo {
+  position: relative;
+}
+
+#chef-photos-preview .photo img {
+  width: 300px;
+  height: 300px;
+  
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.old-photo img {
+  width: 300px;
+  height: 300px;
+  
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+#chef-photos-preview .photo i {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  top: 0;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: rgb(158, 2, 2);
+  background-color: rgba(233, 233, 233, 0.555);
+
+  font-size: 60px;
+
+  opacity: 0;
+}
+
+#chef-photos-preview .photo:hover i {
+  opacity: 1;
+  cursor: pointer;
+  transition: 300ms;
+}
+

@@ -97,7 +97,7 @@ module.exports = {
     return db.query(query)
 
   },
-  files(id) {
+  file(id) {
 
     const query = `SELECT files.*, recipe_id, file_id
     FROM files

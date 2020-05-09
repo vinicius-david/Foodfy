@@ -1,31 +1,14 @@
 const { unlinkSync } = require('fs')
 
 const Chef = require('../models/Chef')
-const Recipe = require('../models/Recipe')
 const File = require('../models/File')
+const LoadService = require('../services/LoadService')
 
 module.exports = {
   async list(req, res) {
     try {
 
-      let chefs = await Chef.findAllWithParam('', 'recipes', 'chef_id', 'chefs.id')
-
-      async function getImage(chefId) {
-
-        let results = await Chef.file(chefId)
-        const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
-
-        return files[0]
-      }
-
-      const chefsPromisse = chefs.map(async chef => {
-
-        chef.img = await getImage(chef.id)
-
-        return chef
-      })
-
-      chefs = await Promise.all(chefsPromisse)
+      const chefs = await LoadService.chefs(req)
 
       return res.render('admin/chefs/chefs', { chefs })
       
@@ -63,47 +46,9 @@ module.exports = {
   async show(req, res) {
     try {
 
-      // get chef
-      const { id } = req.params
-
-      let chef = await Chef.findOneWithParam({ where: {id} }, 'recipes', 'chef_id', 'chefs.id')
+      const { chef, recipes } = await LoadService.chef(req)
 
       if (!chef) return res.send('Chef não encontrado.')
-
-      // get chef avatar
-      async function getChefImage(chefId) {
-
-        let results = await Chef.file(chefId)
-        const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
-
-        return files[0]
-      }
-
-      chef.img = await getChefImage(chef.id)
-
-      // get recipes
-
-      results = await Recipe.findAllChefsRecipes(chef.id)
-      let recipes = results.rows
-
-      // get recipes images
-
-      async function getImage(recipeId) {
-
-        let results = await Recipe.files(recipeId)
-        const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
-
-        return files[0]
-      }
-
-      const recipesPromise = recipes.map(async recipe => {
-
-        recipe.img = await getImage(recipe.id)
-
-        return recipe
-      })
-      
-      recipes = await Promise.all(recipesPromise)
               
       return res.render('admin/chefs/show', { chef, recipes })
       
@@ -114,9 +59,7 @@ module.exports = {
   async edit(req, res) {
     try {
 
-      const { id } = req.params
-  
-      const chef = await Chef.findOneWithParam({ where: {id} }, 'recipes', 'chef_id', 'chefs.id')
+      const { chef } = await LoadService.chef(req)
 
       if (!chef) return res.send('Chef não encontrado.')
 
@@ -130,6 +73,8 @@ module.exports = {
     try {
 
       const { id } = req.body
+
+      console.log(req.body)
 
       if (req.files.length != 0) {
 
@@ -155,13 +100,19 @@ module.exports = {
         
         await Chef.update(id, values)
 
-        console.log(file)
-
         // delete chef old avatar
         await unlinkSync(file.path)
         await File.delete(file.file_id)
-                
+
+        return res.redirect(`/admin/chefs/${req.body.id}`)
       }
+
+      let values = {
+        name: req.body.name,
+        id: req.body.id
+      }
+      
+      await Chef.update(id, values)
       
       return res.redirect(`/admin/chefs/${req.body.id}`)
       

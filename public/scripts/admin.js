@@ -124,6 +124,118 @@ const PhotosUpload = {
   },
 };
 
+const chefPhotoUpload = {
+  input: "",
+  preview: document.querySelector('#chef-photos-preview'),
+  uploadLimit: 1,
+  files: [],
+  handleFileInput(event) {
+    const { files: fileList } = event.target
+    chefPhotoUpload.input = event.target
+
+    if (chefPhotoUpload.hasLimit(event)) return
+
+    Array.from(fileList).forEach(file => {
+
+      chefPhotoUpload.files.push(file)
+
+      const reader = new FileReader()
+
+      reader.onload = () => {
+        const image = new Image()
+        image.src = String(reader.result)
+
+        const div = chefPhotoUpload.getContainer(image)
+
+        chefPhotoUpload.preview.appendChild(div)
+      }
+
+      reader.readAsDataURL(file)
+    })
+
+    chefPhotoUpload.input.files = chefPhotoUpload.getAllFiles()
+  },
+  hasLimit(event) {
+    const { uploadLimit, input, preview } = chefPhotoUpload
+    const { files: fileList } = input
+
+    if (fileList.length > uploadLimit) {
+      alert(`Envie no máximo ${uploadLimit} fotos`)
+      event.preventDefault()
+      return true
+    }
+
+    const photosDiv = []
+    preview.childNodes.forEach(item => {
+      if (item.classList && item.classList.value == 'photo')
+        photosDiv.push(item)
+    })
+
+    const totalPhotos = fileList.length + photosDiv.length
+    if (totalPhotos > uploadLimit) {
+      alert(`O limite de ${uploadLimit} fotos foi ultrapassado`)
+      event.preventDefault()
+      return true
+    }
+
+    return false
+  },
+  getAllFiles() {
+
+    const dataTransfer = new ClipboardEvent("").clipboardData || new DataTransfer()
+
+    chefPhotoUpload.files.forEach(file => dataTransfer.items.add(file))
+
+    return dataTransfer.files
+  },
+  getContainer(image) {
+
+    const div = document.createElement('div')
+
+    div.classList.add('photo')
+    div.onclick = chefPhotoUpload.removePhoto
+    div.appendChild(image)
+
+    div.appendChild(chefPhotoUpload.getRemoveButton())
+
+    return div
+  },
+  getRemoveButton() {
+
+    const button = document.createElement('i')
+
+    button.classList.add('material-icons')
+    button.innerHTML = 'close'
+
+    return button
+  },
+  removePhoto(event) {
+
+    const photoDiv = event.target.parentNode
+    const photosArray = Array.from(chefPhotoUpload.preview.children)
+    const index = photosArray.indexOf(photoDiv)
+
+    chefPhotoUpload.files.splice(index, 1)
+
+    chefPhotoUpload.input.files = chefPhotoUpload.getAllFiles()
+
+    photoDiv.remove()
+  },
+  removeOldPhoto(event) {
+    const photoDiv = event.target.parentNode
+
+    if (photoDiv.id) {
+      const removedFiles = document.querySelector("input[name='removed_files']")
+
+      if (removedFiles) {
+        removedFiles.value += `${photoDiv.id},`
+      }
+    }
+
+    photoDiv.remove()
+  },
+};
+
 const Validate = {
   apply(input, func) {
 

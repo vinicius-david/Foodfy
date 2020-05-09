@@ -4,52 +4,13 @@ const Recipe = require('../models/Recipe')
 const Chef = require('../models/Chef')
 const File = require('../models/File')
 const User = require('../models/User')
+const LoadService = require('../services/LoadService')
 
 module.exports = {
   async list(req, res) {
     try {
 
-      // get recipes
-      async function getRecipes() {
-
-        //check if is admin
-        const user = await User.findOne({ where: { id: req.session.userId } })
-
-        if (user.is_admin) {
-
-          // get all recipes
-          let recipes = await Recipe.findAllAs('', 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs', '', 'created_at', 'DESC')
-
-          return recipes
-
-        } else {
-
-          // get users recipes
-          let recipes = await Recipe.userRecipes(user.id)
-          return recipes
-        }
-      }
-
-      let recipes = await getRecipes()
-
-      // get images
-
-      async function getImage(recipeId) {
-
-        let results = await Recipe.files(recipeId)
-        const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
-
-        return files[0]
-      }
-
-      const recipesPromisse = recipes.map(async recipe => {
-
-        recipe.img = await getImage(recipe.id)
-
-        return recipe
-      })
-
-      recipes = await Promise.all(recipesPromisse)
+      const recipes = await LoadService.recipes(req)
 
       return res.render('admin/recipes/recipes', { recipes })
       
@@ -101,18 +62,10 @@ module.exports = {
   },
   async show(req, res) {
     try {
-      
-      const { id } = req.params
 
-      const recipe = await Recipe.findOneAs({ where: {id} }, 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs')
+      const { recipe, files } = await LoadService.recipe(req)
 
       if (!recipe) return res.send('Receita não encontrada')
-
-      results = await Recipe.files(recipe.id)
-      const files = results.rows.map(file => ({
-        ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
-      }))
 
       return res.render('admin/recipes/show', { recipe, files })
 
@@ -123,24 +76,12 @@ module.exports = {
   async edit(req, res) {
     try {
 
-      const { id } = req.params
-
-      // get chefs
+      // // get chefs
       let chefs = await Chef.findAllWithParam('', 'recipes', 'chef_id', 'chefs.id')
-  
-      // get recipe
-      const recipe = await Recipe.findOneAs({ where: {id} }, 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs')
+
+      const { recipe, files } = await LoadService.recipe(req)
   
       if (!recipe) return res.send('Receita não encontrada')
-  
-      // get images
-  
-      results = await Recipe.files(recipe.id)
-      let files = results.rows
-      files = files.map(file => ({
-        ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
-      }))
   
       return res.render('admin/recipes/edit', { recipe, chefs, files })
       
@@ -190,7 +131,7 @@ module.exports = {
 
       const recipe = await Recipe.findOneAs({ where: {id} }, 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs')
   
-      results = await Recipe.files(recipe.id)
+      results = await Recipe.file(recipe.id)
       const files = results.rows.map(file => ({
         ...file,
         src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
