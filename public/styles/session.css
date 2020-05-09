@@ -53,6 +53,11 @@
   font-weight: 700;
 }
 
+.session-container .submit a:hover {
+  color: var(--buttonhover-color);
+  transition: 200ms;
+}
+
 .session-container .submit button {
   font-size: 16px;
   color: white;
@@ -71,4 +76,12 @@
   background-color: var(--buttonhover-color);
   transition: 300ms;
   cursor: pointer;
+}
+
+/* INVALID MESSAGES ----------------------------------------------------------*/
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }

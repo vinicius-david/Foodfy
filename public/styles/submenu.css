@@ -22,9 +22,9 @@
   padding: 6px 16px;
   border-radius: 4px;
 
-  box-shadow: 1px 1px 2px 1px pink;
+  box-shadow: 1px 1px 2px 1px var(--primary-color);
 
-  background-color: rgb(218, 218, 218);
+  background-color: rgb(255, 231, 249);
 
   opacity: 0;
   visibility: hidden;
@@ -37,7 +37,7 @@
 .accounts .submenu button,
 .accounts .submenu a  {
   color: black;
-  background-color: rgb(218, 218, 218);
+  background-color: rgb(255, 230, 249);
 
   font-size: 11px;
   font-weight: 500;
@@ -49,9 +49,9 @@
 .accounts .submenu button:hover,
 .accounts .submenu a:hover {
   font-weight: 700;
-  text-decoration: underline;
   transition: 200ms;
   cursor: pointer;
+  color: var(--primary-color);
 }
 
 .accounts:hover .submenu {

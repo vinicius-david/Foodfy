@@ -1,8 +1,10 @@
-const currentPage = location.pathname
-const menuItems = document.querySelectorAll('header .header-links a')
+let currentPage = location.pathname
+const formattedCurrentPage = currentPage.replace(/(\/)([0-9])([0-9])/g,"")
+
+const menuItems = document.querySelectorAll('header .home-header-links a')
 
 for (item of menuItems) {
-  if (currentPage ==  item.getAttribute('href')) {
+  if (formattedCurrentPage ==  item.getAttribute('href')) {
     item.classList.add('active')
   }
 }

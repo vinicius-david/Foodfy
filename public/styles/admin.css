@@ -25,8 +25,19 @@
   margin-right: 30px;
 }
 
+.admin-header-links a:hover {
+  color: var(--primary-color);
+  transition: 200ms;
+}
+
 .admin-header-links a img {
   margin-right: 50px;
+}
+
+.admin-header-links .active {
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: 0.8px;
 }
 
 /* FIELDS --------------------------------------------------------------------*/

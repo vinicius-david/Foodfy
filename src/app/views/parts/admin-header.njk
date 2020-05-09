@@ -15,11 +15,11 @@
       
       <div class='submenu'>
 
-        <a href='/'>Home</a>
-        <a href='/admin/users/{{session.userId}}'>Minha conta</a>
-        <a href='/admin/recipes'>Minhas receitas</a>
+        <a id='after' href='/'>Home</a>
+        <a id='after' href='/admin/users/{{session.userId}}'>Minha conta</a>
+        <a id='after' href='/admin/recipes'>Minhas receitas</a>
         <form action='/session/logout' method='POST'>
-          <button>Sair</button>
+          <button id='after'>Sair</button>
         </form>
         
       </div>

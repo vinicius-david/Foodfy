@@ -6,8 +6,9 @@
 }
 
 :root {
-  --primary-color: rgb(223, 118, 49);
-  --buttonhover-color: rgb(179, 95, 27);
+  --primary-color: rgb(179, 0, 185);
+  --buttonhover-color: rgb(112, 0, 134);
+  --header-color: rgba(255, 131, 207, 0.158);
 }
 
 /* LAYOUT --------------------------------------------------------------------*/
@@ -22,8 +23,11 @@
 
 .home-header {
   text-align: center;
-  margin-top: 36px;
-  margin-bottom: 40px;
+  padding-top: 36px;
+  padding-bottom: 30px;
+  margin-bottom: 10px;
+
+  background-color: var(--header-color);
 }
 
 .home-header-links {
@@ -43,7 +47,32 @@
   color: black;
 }
 
+.home-header-links a:hover {
+  font-weight: 700;
+  color: var(--buttonhover-color);
+}
+
+#after {
+  position: relative;
+}
+
+#after::after { 
+  content: "";
+  width: 0%;
+  height: 2px;
+  background-color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+}
+
+#after:hover::after {
+  transition: width 500ms ease-in;
+  width: 100%;
+}
+
 .home-header-links a.active {
+  color: var(--primary-color);
   font-weight: 700;
 }
 
@@ -54,6 +83,7 @@
 .account .material-icons {
   margin-top: 5px;
   font-size: 28px;
+  margin-left: 20px;
 }
 
 .home-header-links .filters {
