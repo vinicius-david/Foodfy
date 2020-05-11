@@ -6,10 +6,7 @@ function checkAllFields(body) {
 
   for (key of keys) {
     if (body[key] == "") {
-      return {
-        user: body,
-        error: 'Preencha todos os campos'
-      }
+      return true
     }
   }
 }
@@ -20,13 +17,17 @@ module.exports = {
     // check if has all fields
     const fillAllFields = checkAllFields(req.body)
     if (fillAllFields) {
-      return res.render('admin/users/show', fillAllFields)
+      return res.render('admin/users/show', { 
+        user: req.body, 
+        error: 'Preencha todos os campos', 
+        number: Math.ceil(Math.random() * 20)})
     }  
     
     const { id, password } = req.body
 
     if (!password) return res.render('admin/users/show', {
-      error: 'Coloque sua senha para atualizar seu cadastro'
+      error: 'Coloque sua senha para atualizar seu cadastro',
+      number: Math.ceil(Math.random() * 20)
     })
 
     const user = await User.findOne({ where: { id } })
@@ -34,7 +35,8 @@ module.exports = {
 
     if (!passed) return res.render('admin/users/show', {
       user,
-      error: 'Senha incorreta'
+      error: 'Senha incorreta',
+      number: Math.ceil(Math.random() * 20)
     })
 
     req.user = user

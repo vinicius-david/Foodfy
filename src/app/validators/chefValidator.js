@@ -7,7 +7,10 @@ module.exports = {
       
       if ( req.body[key] == '') {
 
-        return res.render('admin/chefs/create', { error: 'Por favor, preencha todos os campos' })
+        return res.render('admin/chefs/create', { 
+          error: 'Por favor, preencha todos os campos',
+          number: Math.ceil(Math.random() * 20)
+         })
       }
     }
 

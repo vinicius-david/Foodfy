@@ -11,7 +11,11 @@ module.exports = {
 
         const chefs = await Chef.findAllWithParam('', 'recipes', 'chef_id', 'chefs.id')
 
-        return res.render('admin/recipes/create', { chefs, recipe: req.body, error: 'Por favor, preencha todos os campos' })
+        return res.render('admin/recipes/create', { 
+          chefs, 
+          recipe: req.body, 
+          error: 'Por favor, preencha todos os campos',
+          number: Math.ceil(Math.random() * 20) })
       }
     }
 
