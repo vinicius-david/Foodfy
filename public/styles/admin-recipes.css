@@ -7,7 +7,7 @@
   font-size: 24px;
   font-weight: 700;
 
-  margin-top: 50px;
+  margin-top: 16px;
   margin-bottom: 30px;
 
   display: flex;
@@ -51,6 +51,8 @@
   height: 80px;
 
   border-radius: 9px;
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 }
 
 .admin-recipes .admin-recipe .admin-recipe-info h2 {
@@ -91,6 +93,8 @@
 .show-content .image img {
   margin-top: 10px;
   border-radius: 15px;
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 }
 
 .show-content .title {

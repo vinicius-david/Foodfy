@@ -206,6 +206,8 @@ footer h1 {
   width: 300px;
   height: 140px;
   border-radius: 15px;
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 }
 
 .home-recipes .recipes .recipe h2 {
@@ -265,6 +267,8 @@ footer h1 {
   width: 300px;
   height: 140px;
   border-radius: 15px;
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 }
 
 .all-recipes h1 {
@@ -278,6 +282,8 @@ footer h1 {
   height: 140px;
   border-radius: 15px;
   margin-top: 10px;
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 }
 
 .all-recipes .recipe h2 {
@@ -304,6 +310,8 @@ footer h1 {
 
 .show-content .image img {
   border-radius: 15px;
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 }
 
 .show-content .title {
@@ -409,6 +417,8 @@ footer h1 {
 
   border-radius: 50%;
   margin-right: 20px;
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 }
 
 .home-chefs-list .chef-info h2 {
@@ -448,6 +458,9 @@ footer h1 {
   width: 300px;
   height: 140px;
   border-radius: 15px;
+
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 }
 
 .filter-card .recipes h2 {
@@ -475,6 +488,8 @@ footer h1 {
   height: 280px;
 
   border-radius: 15px;
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 
   object-fit: cover;
   object-position: 50% 50%;
@@ -491,6 +506,9 @@ footer h1 {
   width: 50px;
   margin-left: 10px;
   border-radius: 4px;
+
+  border: 1.5px solid white;
+  box-shadow: 1px 1px 4px 1px black;
 
   object-fit: cover;
 

@@ -10,17 +10,27 @@ module.exports = {
 
       const chefs = await LoadService.chefs(req)
 
-      return res.render('admin/chefs/chefs', { chefs })
+      return res.render('admin/chefs/chefs', { 
+        chefs, 
+        number: Math.ceil(Math.random() * 20) 
+      })
       
     } catch (error) {
       console.error(error)
     }
   },
   create(req, res) {
-    return res.render('admin/chefs/create')
+    return res.render('admin/chefs/create', { number: Math.ceil(Math.random() * 20) })
   },
   async post(req, res) {
     try {
+
+      if (req.files.length == 0) {
+        return res.render('admin/chefs/create', { 
+          error: 'Por favor, envie ao menos uma imagem', 
+          number: Math.ceil(Math.random() * 20) 
+        })
+      }
 
       const file = req.files
 
@@ -35,10 +45,16 @@ module.exports = {
         file_id: fileId[0]
       }
   
-      const chefId = await Chef.create(values)
-      
-      return res.redirect(`/admin/chefs/${chefId}`)
-      
+      req.params.id = await Chef.create(values)
+
+      const { chef, recipes } = await LoadService.chef(req)
+              
+      return res.render('admin/chefs/show', { 
+        chef, 
+        recipes, 
+        number: Math.ceil(Math.random() * 20), 
+        success: 'Chef criado' })
+            
     } catch (error) {
       console.error(error)
     }
@@ -50,7 +66,11 @@ module.exports = {
 
       if (!chef) return res.send('Chef não encontrado.')
               
-      return res.render('admin/chefs/show', { chef, recipes })
+      return res.render('admin/chefs/show', { 
+        chef, 
+        recipes, 
+        number: Math.ceil(Math.random() * 20) 
+      })
       
     } catch (error) {
       console.error(error)
@@ -63,7 +83,10 @@ module.exports = {
 
       if (!chef) return res.send('Chef não encontrado.')
 
-      return res.render('admin/chefs/edit', { chef })
+      return res.render('admin/chefs/edit', { 
+        chef, 
+        number: Math.ceil(Math.random() * 20) 
+      })
       
     } catch (error) {
       console.error(error)
@@ -74,15 +97,13 @@ module.exports = {
 
       const { id } = req.body
 
-      console.log(req.body)
-
       if (req.files.length != 0) {
 
         // get chef
-        const chef = await Chef.findOneWithParam({ where: {id} }, 'recipes', 'chef_id', 'chefs.id')
+        const oldChef = await Chef.findOneWithParam({ where: {id} }, 'recipes', 'chef_id', 'chefs.id')
   
         // get chef avatar
-        let results = await Chef.file(chef.id)
+        let results = await Chef.file(oldChef.id)
         const file = results.rows[0]
     
         const newFilesPromise = req.files.map(file => File.create({
@@ -104,7 +125,17 @@ module.exports = {
         await unlinkSync(file.path)
         await File.delete(file.file_id)
 
-        return res.redirect(`/admin/chefs/${req.body.id}`)
+        req.params.id = id
+
+        const { chef, recipes } = await LoadService.chef(req)
+
+        console.log(chef, recipes)
+                
+        return res.render('admin/chefs/show', { 
+          chef, 
+          recipes, 
+          success: 'Dados do chef atualizados', number: Math.ceil(Math.random() * 20) 
+        })
       }
 
       let values = {
@@ -113,9 +144,17 @@ module.exports = {
       }
       
       await Chef.update(id, values)
-      
-      return res.redirect(`/admin/chefs/${req.body.id}`)
-      
+
+      req.params.id = id
+
+      const { chef, recipes } = await LoadService.chef(req)
+              
+      return res.render('admin/chefs/show', { 
+        chef, 
+        recipes, 
+        success: 'Dados do chef atualizados', number: Math.ceil(Math.random() * 20) 
+      })
+            
     } catch (error) {
       console.error(error)
     }
@@ -140,11 +179,23 @@ module.exports = {
         await unlinkSync(file.path)
         await File.delete(file.file_id)
           
-        return res.redirect('/admin/chefs')
+        const chefs = await LoadService.chefs(req)
+
+        return res.render('admin/chefs/chefs', { 
+          chefs, 
+          success: 'Chef deletado com sucesso', 
+          number: Math.ceil(Math.random() * 20) 
+        })
         
       } else {
 
-        return res.send('O chef não pode ser deletado pois possui receitas cadastradas.')
+        const chefs = await LoadService.chefs(req)
+
+        return res.render('admin/chefs/chefs', { 
+          chefs, 
+          error: 'Não é possível deletar chefs com receitas cadastradas', 
+          number: Math.ceil(Math.random() * 20) 
+        })
       }
     
     } catch (error) {

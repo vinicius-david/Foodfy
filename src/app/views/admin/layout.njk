@@ -10,13 +10,21 @@
 
 <body>
 
+<div id='body' style="background: url(http://localhost:3000/images/random/{{number}}.jpg) center center / cover">
+
+
   {% include 'parts/messages.njk' %}
 
   {% include 'parts/admin-header.njk' %}
 
+<div class='index-card'>
   {% block content %}{% endblock content %}
+</div>
 
   <script src='/scripts/admin.js'></script>
+
+
+</div>
 
 </body>
 

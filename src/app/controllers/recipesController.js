@@ -12,7 +12,41 @@ module.exports = {
 
       const recipes = await LoadService.recipes(req)
 
-      return res.render('admin/recipes/recipes', { recipes })
+      return res.render('admin/recipes/recipes', { 
+        recipes, 
+        number: Math.ceil(Math.random() * 20) })
+      
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  async userRecipes(req, res) {
+    try {
+
+      // get users recipes
+      let recipes = await Recipe.userRecipes(req.session.userId)
+
+      // get images
+      async function getImage(recipeId) {
+
+        let results = await Recipe.file(recipeId)
+        const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
+
+        return files[0]
+      }
+
+      const recipesPromisse = recipes.map(async recipe => {
+
+        recipe.img = await getImage(recipe.id)
+
+        return recipe
+      })
+
+      recipes = await Promise.all(recipesPromisse)
+
+      return res.render('admin/recipes/user-recipes', { 
+        recipes, 
+        number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)
@@ -23,7 +57,9 @@ module.exports = {
 
       const chefs = await Chef.findAllWithParam('', 'recipes', 'chef_id', 'chefs.id')
 
-      return res.render('admin/recipes/create', { chefs })
+      return res.render('admin/recipes/create', { 
+        chefs, 
+        number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)
@@ -53,9 +89,17 @@ module.exports = {
         file_id: filesIds[i]
       })
       }
-      
-      return res.redirect(`/admin/recipes/${recipeId}`)
-      
+
+      req.params.id = recipeId
+
+      const { recipe, files } = await LoadService.recipe(req)
+
+      return res.render('admin/recipes/show', { 
+        recipe, 
+        files, 
+        success: 'Receita cadastrada com sucesso', 
+        number: Math.ceil(Math.random() * 20) })
+            
     } catch (error) {
       console.error(error)
     }
@@ -67,7 +111,10 @@ module.exports = {
 
       if (!recipe) return res.send('Receita não encontrada')
 
-      return res.render('admin/recipes/show', { recipe, files })
+      return res.render('admin/recipes/show', { 
+        recipe, 
+        files, 
+        number: Math.ceil(Math.random() * 20) })
 
     } catch (error) {
       console.error(error)
@@ -76,6 +123,20 @@ module.exports = {
   async edit(req, res) {
     try {
 
+      // get user
+      const user = await User.findOne({ where: { id: req.session.userId } })
+      const oldRecipe = await Recipe.findOne({ where: { id: req.params.id } })
+
+      if (!user.is_admin && (oldRecipe.user_id != user.id)) {
+
+        const recipes = await LoadService.recipes(req)
+
+        return res.render('admin/recipes/recipes', { 
+          recipes,
+          error: 'Usuários comuns só podem editar as próprias receitas'
+        })
+      } 
+
       // // get chefs
       let chefs = await Chef.findAllWithParam('', 'recipes', 'chef_id', 'chefs.id')
 
@@ -83,7 +144,11 @@ module.exports = {
   
       if (!recipe) return res.send('Receita não encontrada')
   
-      return res.render('admin/recipes/edit', { recipe, chefs, files })
+      return res.render('admin/recipes/edit', { 
+        recipe, 
+        chefs, 
+        files, 
+        number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)
@@ -91,6 +156,15 @@ module.exports = {
   },
   async put(req, res) {
     try {
+
+      // get user
+      const user = await User.findOne({ where: { id: req.session.userId } })
+
+      // get recipe
+      const oldRecipe = await Recipe.findOne({ where: { id: req.body.id } })
+
+      if (!user.is_admin && (oldRecipe.user_id != user.id)) 
+      return res.send('Usuários comuns só podem editar as próprias receitas')
 
       if (req.files.length != 0) {
         const newFilesPromise = req.files.map(file => 
@@ -117,9 +191,17 @@ module.exports = {
       }
   
       await Recipe.update(req.body)
-      
-      return res.redirect(`/admin/recipes/${req.body.id}`)
-      
+
+      req.params.id = oldRecipe.id
+
+      const { recipe, files } = await LoadService.recipe(req)
+
+      return res.render('admin/recipes/show', { 
+        recipe, 
+        files, 
+        success: 'Dados atualizados com sucesso', 
+        number: Math.ceil(Math.random() * 20) })
+            
     } catch (error) {
       console.error(error)
     }
@@ -143,7 +225,12 @@ module.exports = {
   
       await Recipe.delete(id)
   
-      return res.redirect('/admin/recipes')
+      const recipes = await LoadService.recipes(req)
+
+      return res.render('admin/recipes/recipes', { 
+        recipes, 
+        success:'Receita deletada com sucesso', 
+        number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)

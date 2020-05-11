@@ -1,11 +1,23 @@
-  {% if error %}
-    <div class='error messages'>
-      {{error}}
-    </div>
-  {% endif %}
+{% if error %}
+  <div class='error messages'>
+    {{error}}
+  </div>
+{% endif %}
 
-  {% if success %}
-    <div class='success messages'>
-      {{success}}
-    </div>
-  {% endif %}
+{% if success %}
+  <div class='success messages'>
+    {{success}}
+  </div>
+{% endif %}
+
+{% if error %}
+  <div class='error admin-messages'>
+    {{adminError}}
+  </div>
+{% endif %}
+
+{% if success %}
+  <div class='success admin-messages'>
+    {{adminSuccess}}
+  </div>
+{% endif %}

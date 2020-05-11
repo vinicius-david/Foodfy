@@ -1,4 +1,6 @@
 const Recipe = require('../models/Recipe')
+const Chef = require('../models/Chef')
+const User = require('../models/User')
 const LoadService = require('../services/LoadService')
 
 module.exports = {
@@ -84,7 +86,22 @@ module.exports = {
       console.error(error)
     }
   },
-  admin(req,res) {
-    return res.render('admin/index')
+  async admin(req,res) {
+    try {
+
+      const recipes = await LoadService.recipes(req)
+      const chefs = await LoadService.chefs(req)
+      const users = await User.findAll()
+
+      return res.render('admin/index', {
+        recipes: recipes.length,
+        chefs: chefs.length,
+        users: users.length,
+        number: Math.ceil(Math.random() * 20)
+      })
+      
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

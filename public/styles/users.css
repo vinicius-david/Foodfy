@@ -3,7 +3,9 @@
 .user-header-container {
   width: 940px;
   margin: 0 auto;
-  padding: 55px;
+  padding: 16px;
+
+  margin-bottom: 16px;
 
   display: flex;
   flex-direction: row;

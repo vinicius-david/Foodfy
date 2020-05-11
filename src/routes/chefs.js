@@ -5,13 +5,14 @@ const multer = require('../app/middlewares/multer')
 const chefs = require('../app/controllers/ChefsController')
 
 const { onlyUsers, onlyAdmins } = require('../app/middlewares/session')
+const chefValidator = require('../app/validators/chefValidator')
 
 
 
 routes.get('/', onlyUsers, chefs.list)
 
 routes.get('/create', onlyUsers, onlyAdmins, chefs.create)
-routes.post('/create', onlyUsers, onlyAdmins, multer.array('photo', 1), chefs.post)
+routes.post('/create', onlyUsers, onlyAdmins, multer.array('photo', 1), chefValidator.post, chefs.post)
 
 routes.get('/:id', onlyUsers, chefs.show)
 

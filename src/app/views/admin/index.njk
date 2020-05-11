@@ -1,4 +1,33 @@
 {% extends 'admin/layout.njk' %}
 
 {% block content %}
+
+  <div class='index-title'>
+    <h2>Bem-vindo(a) à parte de administração do Foodfy</h2>
+  </div>
+
+  <div class='index-main'>
+
+    <div class='main'>
+
+      <div class='index-description'>
+        <p>Aqui você pode criar, editar e deletar usuários, receitas e chefs!!</p>
+      </div>
+
+      <div class='index-info'>
+        <ul>
+          <li><a href='/admin/recipes'>{{recipes}} Receitas cadastradas</a></li>
+          <li><a href='/admin/chefs'>{{chefs}} Chefs cadastrados</a></li>
+          <li><a href='/admin/users'>{{users}} Usuários cadastrados</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class='chef-img'>
+      <img src="./images/chef.png" alt="Chef">
+    </div>
+
+  </div>
+
 {% endblock content %}

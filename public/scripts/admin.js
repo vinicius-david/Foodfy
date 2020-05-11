@@ -3,9 +3,6 @@ const formattedCurrentPage = currentPage.replace(/(\/)([0-9])([0-9])/g,"")
 
 const menuItems = document.querySelectorAll('header .admin-header-links a')
 
-console.log(formattedCurrentPage)
-console.log(menuItems)
-
 for (item of menuItems) {
   if (formattedCurrentPage ==  item.getAttribute('href')) {
     item.classList.add('active')

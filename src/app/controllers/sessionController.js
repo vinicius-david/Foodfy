@@ -15,13 +15,19 @@ module.exports = {
 
     req.session.userId = req.user.id
 
-    return res.redirect(`/admin/users/${req.session.userId}`)
+    const user = await User.findOne({ where: { id: req.session.userId } })
+
+    return res.render('admin/users/show', { 
+      user, 
+      success:'Login realizado com sucesso', 
+      number: Math.ceil(Math.random() * 20) 
+    })
   },
   logout(req, res) {
 
     req.session.destroy()
 
-    return res.redirect('/session/login')
+    return res.render('session/login', { success: 'Logout realizado com sucesso' })
   },
   forgotForm(req, res) {
     return res.render('session/forgot-password')

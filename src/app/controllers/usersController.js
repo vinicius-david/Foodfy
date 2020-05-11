@@ -10,7 +10,10 @@ module.exports = {
 
       const users = await User.findAll()
 
-      return res.render('admin/users/users', { users })
+      return res.render('admin/users/users', { 
+        users, 
+        number: Math.ceil(Math.random() * 20) 
+      })
       
     } catch (error) {
       console.error(error)
@@ -19,7 +22,9 @@ module.exports = {
   create(req, res) {
     try {
 
-      return res.render('admin/users/create')
+      return res.render('admin/users/create', { 
+        number: Math.ceil(Math.random() * 20) 
+      })
 
     } catch (error) {
       console.error(error)
@@ -78,7 +83,8 @@ module.exports = {
       
       return res.render(`admin/users/users`, {
         users,
-        success: 'Novo usuário criado, use o link enviado por email para redefinir a sua senha'
+        success: 'Novo usuário criado, use o link enviado por email para redefinir a sua senha',
+        number: Math.ceil(Math.random() * 20)
       })
  
     } catch (error) {
@@ -90,7 +96,10 @@ module.exports = {
 
       const user = await User.findOne({ where: { id: req.params.id } })
 
-      return res.render('admin/users/show', { user })
+      return res.render('admin/users/show', { 
+        user, 
+        number: Math.ceil(Math.random() * 20) 
+      })
 
     } catch (error) {
       console.error(error)
@@ -101,7 +110,10 @@ module.exports = {
 
       const user = await User.findOne({ where: { id: req.params.id } })
 
-      return res.render('admin/users/edit', { user })
+      return res.render('admin/users/edit', { 
+        user, 
+        number: Math.ceil(Math.random() * 20) 
+      })
 
     } catch (error) {
       console.error(error)
@@ -115,10 +127,15 @@ module.exports = {
       //boolean admin status
       if (!req.body.is_admin) {
 
+        let is_admin = 'false'
+
         await User.update(id, {
           name,
-          email
+          email,
+          is_admin
         })
+
+        console.log('sem admin')
 
       } else {
 
@@ -129,13 +146,17 @@ module.exports = {
           email,
           is_admin
         })
+
+        console.log('com admin')
+
       }
 
       const users = await User.findAll()
 
       return res.render(`admin/users/users`, {
         users,
-        success: 'Os dados do usuário foram atualizados'
+        success: 'Os dados do usuário foram atualizados',
+        number: Math.ceil(Math.random() * 20)
       })
 
     } catch (error) {
@@ -155,17 +176,19 @@ module.exports = {
   
         return res.render('admin/users/users', {
           users,
-          error: 'Usuários com receitas cadastradas não podem ser deletados'
+          error: 'Usuários com receitas cadastradas não podem ser deletados',
+          number: Math.ceil(Math.random() * 20)
         })
       } else {
         
         await User.delete(id)
   
-        const users = await User.list()
+        const users = await User.findAll()
   
         return res.render('admin/users/users', {
           users,
-          success: 'Usuário deletado'
+          success: 'Usuário deletado',
+          number: Math.ceil(Math.random() * 20)
         })
 
       }      

@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const LoadService = require('../services/LoadService')
 
 module.exports = {
   onlyUsers(req, res, next) {
@@ -17,13 +18,31 @@ module.exports = {
 
     const user = await User.findOne({ where: { id: req.session.userId } })
 
-    if (!user.is_admin) return res.send('Only admins')
+    if (!user.is_admin) {
+
+      const recipes = await LoadService.recipes(req)
+      const chefs = await LoadService.chefs(req)
+      const users = await User.findAll()
+
+      return res.render('admin/index', {
+        recipes: recipes.length,
+        chefs: chefs.length,
+        users: users.length,
+        error: 'Somente admins podem acessar essa página'
+      })
+
+    }
 
     next()
   },
-  isYourAccount(req, res, next) {
+  async isYourAccount(req, res, next) {
 
-    if (req.params.id == req.session.userId) return res.send('Não pode deletar a própria conta')
+    if (req.params.id == req.session.userId) {
+
+      const users = await User.findAll()
+
+      return res.render('admin/users/users', { users, error:'Usuários não podem deletar a própria conta' })
+    }
 
     next()
   }
