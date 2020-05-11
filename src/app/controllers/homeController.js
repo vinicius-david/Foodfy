@@ -9,21 +9,21 @@ module.exports = {
 
       const recipes = await LoadService.recipes(req)
 
-      return res.render('home/index', { recipes })
+      return res.render('home/index', { recipes, number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)
     }
   },
   about(req, res) {
-    return res.render('home/about')
+    return res.render('home/about', { number: Math.ceil(Math.random() * 20) })
   },
   async recipes(req, res) {
     try {
   
       const recipes = await LoadService.recipes(req)
 
-      return res.render('home/recipes', { recipes })
+      return res.render('home/recipes', { recipes, number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)
@@ -36,7 +36,7 @@ module.exports = {
 
       if (!recipe) return res.send('Receita não encontrada')
 
-      return res.render('home/show', { recipe, files })
+      return res.render('home/show', { recipe, files, number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)
@@ -47,7 +47,7 @@ module.exports = {
 
       const chefs = await LoadService.chefs(req)
   
-      return res.render('home/chefs', { chefs })
+      return res.render('home/chefs', { chefs, number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)
@@ -80,7 +80,7 @@ module.exports = {
   
       recipes = await Promise.all(recipesPromisse)
   
-      return res.render('home/filter', { recipes, filter })
+      return res.render('home/filter', { recipes, filter, number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)

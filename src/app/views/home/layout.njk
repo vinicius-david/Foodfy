@@ -10,6 +10,8 @@
 
 <body class='home-body'>
 
+<div id='body' style="background: url(http://localhost:3000/images/random/{{number}}.jpg) center center / cover">
+
   {% include 'parts/home-header.njk' %}
 
   {% block content %}{% endblock content %}
@@ -17,6 +19,8 @@
   {% include 'parts/footer.njk' %}
 
   <script src="/scripts/home.js"></script>
+
+</div>
 
 </body>
 

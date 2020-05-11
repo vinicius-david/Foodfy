@@ -13,66 +13,6 @@ body {
   max-height: 1600px;
 }
 
-.index-card {
-  max-width: 70%;
-  max-height: 1500px;
-  padding-bottom: 40px;
-  padding-top: 8px;
-  border-radius: 16px;
-
-  box-shadow: 1px 1px 4px 1px black;
-
-  background-color: white;
-
-  margin: 0 auto;
-
-  margin-bottom: 32px;
-}
-
-.index-card .index-title {
-  text-align: center;
-  margin-bottom: 16px;
-  padding-top: 16px;
-}
-
-.index-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-}
-
-.index-main .chef-img img {
-  margin-left: 200px;
-  align-items: center;
-  
-}
-
-.index-card .index-description {
-  text-align: center;
-  margin-left: 29px;
-  padding: 4px;
-}
-
-.index-card .index-info {
-  text-align: center;
-  margin-left: 33px;
-  margin-top: 4px;
-}
-
-.index-card .index-info li {
-  list-style: none;
-  margin-top: 8px;
-}
-
-.index-card a {
-  text-decoration: none;
-  color: var(--primary-color);
-}
-
-.index-card a:hover {
-  font-weight: 700;
-}
-
 /* HEADER ------------------------------------------------------------------- */
 
 .admin-header {
