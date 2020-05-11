@@ -34,4 +34,13 @@
 
 </div>
 
+<div class='paginate'>
+  {% for page in pages %}
+
+    <a href='?page={{page}}&filter={{filter}}'>{{page}}</a>
+
+  {% endfor %}
+</div>
+
+
 {% endblock content %}

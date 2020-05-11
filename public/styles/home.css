@@ -126,16 +126,20 @@
 }
 
 footer {
-  background-color: #EEEEEE;
-  color: #999999;
+  background-color: rgba(236, 236, 236, 0.774);
+  color: var(--primary-color);
 
   margin-top: auto;
-  padding-top: 23px;
-  padding-bottom: 23px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  position: fixed;
 }
 
 footer h1 {
-  font-size: 14px;
+  font-size: 12px;
   text-align: center;
 }
 

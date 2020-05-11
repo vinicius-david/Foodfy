@@ -85,14 +85,18 @@ module.exports = {
     return db.query(query,values)
 
   },
-  findBy(filter) {
+  findBy(filter, limit, offset) {
 
-    const query = `SELECT recipes.*, chefs.name AS chef_name
+    let query = `SELECT recipes.*, chefs.name AS chef_name
       FROM recipes 
       LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-      WHERE recipes.title ILIKE '%${filter}%'
-      ORDER BY updated_at DESC
     `
+
+    if (filter) query += `WHERE recipes.title ILIKE '%${filter}%'`
+
+    query += `ORDER BY updated_at DESC `
+
+    if (limit) query += `LIMIT ${limit} OFFSET ${offset}`
 
     return db.query(query)
 

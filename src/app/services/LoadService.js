@@ -90,23 +90,6 @@ const LoadService = {
     try {
 
       let recipes = await Recipe.findAllAs('', 'chefs.name', 'chef_name', 'chefs', 'chef_id', 'chefs', '', 'created_at', 'DESC')
-      
-      // async function getImage(recipeId) {
-
-      //   let results = await Recipe.file(recipeId)
-      //   const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
-
-      //   return files[0]
-      // }
-
-      // const recipesPromisse = recipes.map(async recipe => {
-
-      //   recipe.img = await getImage(recipe.id)
-
-      //   return recipe
-      // })
-
-      // recipes = await Promise.all(recipesPromisse)
 
       const recipesPromise = recipes.map(async recipe => {
   

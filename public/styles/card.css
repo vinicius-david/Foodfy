@@ -1,5 +1,6 @@
 .index-card,
-.index-chef-card {
+.index-chef-card,
+.index-recipes-card {
   max-width: 70%;
   max-height: 1500px;
   padding-bottom: 40px;
@@ -12,7 +13,7 @@
 
   margin: 0 auto;
 
-  margin-bottom: 32px;
+  margin-bottom: 100px;
 }
 
 .index-card .index-title {
@@ -59,8 +60,20 @@
   font-weight: 700;
 }
 
-/* CHEF CARD -----------------------------------------------------------------*/
+/* PAGINATE ------------------------------------------------------------------*/
 
-.index-chef-card {
-  margin-bottom: 305px;
+.paginate {
+  text-align: center;
+}
+
+.paginate a {
+  text-decoration: none;
+  margin-right: 8px;
+  font-size: 18px;
+
+  color: var(--primary-color);
+}
+
+.paginate a:hover {
+  font-weight: 700;
 }

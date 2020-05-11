@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class='index-card'>
+<div class='index-recipes-card'>
 
   <div class='filter-card'>
 
@@ -37,6 +37,14 @@
 
       </div>
 
+  </div>
+
+  <div class='paginate'>
+    {% for page in pages %}
+
+      <a href='?page={{page}}&filter={{filter}}'>{{page}}</a>
+
+    {% endfor %}
   </div>
 
 </div>

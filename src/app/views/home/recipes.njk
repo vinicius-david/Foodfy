@@ -4,27 +4,37 @@
 
 <div class='index-card'>
 
-<div class='all-recipes'>
+  <div class='all-recipes'>
 
-  {% for recipe in recipes %}
+    {% for recipe in recipes %}
 
-  <div class='recipe'>
+    <div class='recipe'>
 
-    <div class='recipe-img'>
-      <a href='/recipes/{{recipe.id}}'><img src={{recipe.img}} alt={{recipe.title}}></a>
+      <div class='recipe-img'>
+        <a href='/recipes/{{recipe.id}}'><img src={{recipe.img}} alt={{recipe.title}}></a>
+      </div>
+
+      <div class='recipe-info'>
+        <h2>{{recipe.title}}</h2>
+        <p>por {{recipe.chef_name}}</p>
+      </div>
+
     </div>
 
-    <div class='recipe-info'>
-      <h2>{{recipe.title}}</h2>
-      <p>por {{recipe.chef_name}}</p>
-    </div>
+    {% endfor %}
 
   </div>
 
-  {% endfor %}
+  <div class='paginate'>
+    {% for page in pages %}
+
+      <a href='?page={{page}}&filter={{filter}}'>{{page}}</a>
+
+    {% endfor %}
+  </div>
 
 </div>
 
-</div>
+<script src="/scripts/paginate.js"></script>
 
 {% endblock content %}

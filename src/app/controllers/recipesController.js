@@ -10,11 +10,55 @@ module.exports = {
   async list(req, res) {
     try {
 
-      const recipes = await LoadService.recipes(req)
+      // pagination
+      let { page, limit } = req.query
+      let filter = ''
+      let pages = []
 
+      const allRecipes = await LoadService.recipes(req)
+      const totalRecipes = allRecipes.length
+
+      page = page || 1
+      limit = limit || 6
+      let offset = limit * ( page - 1 )
+
+      for (let i = 1; i <= Math.ceil(totalRecipes/limit); i++) {
+        pages.push(i)
+      }
+
+      // get recipes
+      results = await Recipe.findBy(filter, limit, offset)
+      let recipes = results.rows
+  
+      // get images
+      async function getImage(recipeId) {
+  
+        let results = await Recipe.file(recipeId)
+        const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`)
+  
+        return files[0]
+      }
+  
+      const recipesPromisse = recipes.map(async recipe => {
+  
+        recipe.img = await getImage(recipe.id)
+  
+        return recipe
+      })
+  
+      recipes = await Promise.all(recipesPromisse)
+  
       return res.render('admin/recipes/recipes', { 
-        recipes, 
-        number: Math.ceil(Math.random() * 20) })
+        recipes,  
+        number: Math.ceil(Math.random() * 20),
+        pages
+      })
+
+      // const recipes = await LoadService.recipes(req)
+
+      // return res.render('admin/recipes/recipes', { 
+      //   recipes, 
+      //   number: Math.ceil(Math.random() * 20) })
       
     } catch (error) {
       console.error(error)
