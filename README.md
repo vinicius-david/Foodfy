@@ -9,7 +9,7 @@ O projeto **Foodfy** é um site criado como desafio do bootcamp **LaunchBase** d
 ---
 
 <h1>
-  <img src='https://ik.imagekit.io/xcu9aqv3wh/home_gRhKjrYOz.gif'>
+  <img src='https://ik.imagekit.io/xcu9aqv3wh/home_vbhGrbN5Z.gif'>
 </h1>
 
 <h1>
